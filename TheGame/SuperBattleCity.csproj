@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{58A6D5F2-429A-4F46-9E19-F98EC07279FF}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>TheGame</RootNamespace>
+    <AssemblyName>TheGame</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameFramework.cs" />
+    <Compile Include="GameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameForm.Designer.cs">
+      <DependentUpon>GameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GameObjectManager.cs" />
+    <Compile Include="GameObjects\Bullet.cs" />
+    <Compile Include="GameObjects\Enemies\BaseEnemyTank.cs" />
+    <Compile Include="GameObjects\Enemies\ArmorTank.cs" />
+    <Compile Include="GameObjects\Enemies\PowerTank.cs" />
+    <Compile Include="GameObjects\Enemies\FastTank.cs" />
+    <Compile Include="GameObjects\Enemies\BasicTank.cs" />
+    <Compile Include="GameObjects\Explosion.cs" />
+    <Compile Include="GameObjects\PlyTank.cs" />
+    <Compile Include="GameObjects\Powerup.cs" />
+    <Compile Include="GameObjects\Shield.cs" />
+    <Compile Include="GameObjects\StaticObject\brickWall.cs" />
+    <Compile Include="GameObjects\StaticObject\bush.cs" />
+    <Compile Include="GameObjects\StaticObject\hq.cs" />
+    <Compile Include="GameObjects\StaticObject\water.cs" />
+    <Compile Include="GameObjects\StaticObject\ironblock.cs" />
+    <Compile Include="GameObjects\Tank.cs" />
+    <Compile Include="Misc.cs" />
+    <Compile Include="ObjStuff\GameObj.cs" />
+    <Compile Include="ObjStuff\MovingObj.cs" />
+    <Compile Include="ObjStuff\NoMovingObj.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoundMan.cs" />
+    <Compile Include="TextInputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TextInputForm.Designer.cs">
+      <DependentUpon>TextInputForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Title.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Title.Designer.cs">
+      <DependentUpon>Title.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="GameForm.resx">
+      <DependentUpon>GameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="TextInputForm.resx">
+      <DependentUpon>TextInputForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Title.resx">
+      <DependentUpon>Title.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="image\bulletdown.png" />
+    <None Include="image\bulletleft.png" />
+    <None Include="image\bulletright.png" />
+    <None Include="image\bulletup.png" />
+    <None Include="image\brick\brick0011.png" />
+    <None Include="image\brick\brick0101.png" />
+    <None Include="image\brick\brick0111.png" />
+    <None Include="image\brick\brick1010.png" />
+    <None Include="image\brick\brick1011.png" />
+    <None Include="image\brick\brick1100.png" />
+    <None Include="image\brick\brick1101.png" />
+    <None Include="image\brick\brick1110.png" />
+    <None Include="image\IronBlock.png" />
+    <None Include="image\tanks\player\playerUp.png" />
+    <None Include="image\tanks\player\playerDown.png" />
+    <None Include="image\tanks\player\playerLeft.png" />
+    <None Include="image\tanks\player\playerRight.png" />
+    <None Include="image\explosion\explosion0.png" />
+    <None Include="image\explosion\explosion1.png" />
+    <None Include="image\explosion\explosion2.png" />
+    <None Include="image\tanks\basic\basictankRight.png" />
+    <None Include="image\tanks\basic\basictankUp.png" />
+    <None Include="image\tanks\basic\basictankDown.png" />
+    <None Include="image\tanks\basic\basictankLeft.png" />
+    <None Include="image\tanks\fast\fastTankLeft.png" />
+    <None Include="image\tanks\fast\fastTankRight.png" />
+    <None Include="image\tanks\fast\fastTankUp.png" />
+    <None Include="image\tanks\fast\fastTankDown.png" />
+    <None Include="image\tanks\power\powertankRight.png" />
+    <None Include="image\tanks\power\powertankUp.png" />
+    <None Include="image\tanks\power\powertankDown.png" />
+    <None Include="image\tanks\power\powertankLeft.png" />
+    <None Include="image\BaseDED.png" />
+    <None Include="image\BaseOK.png" />
+    <None Include="image\powerups\1Up.png" />
+    <None Include="image\powerups\BaseDefense.png" />
+    <None Include="image\powerups\Clock.png" />
+    <None Include="image\powerups\Grenade.png" />
+    <None Include="image\powerups\Helmet.png" />
+    <None Include="image\powerups\Powerup.png" />
+    <None Include="image\tanks\armor\armortankLeft.png" />
+    <None Include="image\tanks\armor\armortankRight.png" />
+    <None Include="image\tanks\armor\armortankUp.png" />
+    <None Include="image\tanks\armor\armortankDown.png" />
+    <None Include="image\shield\shield0.png" />
+    <None Include="image\shield\shield1.png" />
+    <Content Include="maps\map0.txt" />
+    <None Include="Resources\brick.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
