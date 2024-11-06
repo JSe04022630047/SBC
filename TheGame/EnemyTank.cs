@@ -46,6 +46,7 @@ namespace TheGame
             ImgRight = Properties.Resources.basictankRight;
             makeTransparent();
             dropPowerUp = r.Next(0, 100) < 25;
+            //dropPowerUp = true;
             flashed = false;
         }
 
@@ -53,7 +54,8 @@ namespace TheGame
         {
             foreach (Bitmap bmp in new Bitmap[] { ImgUp, ImgDown, ImgLeft, ImgRight })
             {
-                bmp.MakeTransparent(Color.FromArgb(0, 255, 0));
+                bmp.MakeTransparent(Color.FromArgb(0, 255, 0)); // im too lazy to actually make the images themself to have same transparent key but whatever.
+                bmp.MakeTransparent(Color.FromArgb(24, 255, 0)); // I also didn't know that PNG actually have their transparent set for you already but its too late now.
             }
         }
         public override void Update()
@@ -145,10 +147,15 @@ namespace TheGame
                 return;
             }
 
-            /*if (GameObjectManager.IsCollidedBase(thisHitbox))
+            if (GameObjectManager.IsCollidedBase(thisHitbox))
             {
-                IsMoving = false; return;
-            }*/
+                canMove = false; return;
+            }
+
+            if (GameObjectManager.IsCollidedPly(thisHitbox))
+            {
+                canMove = false; return;
+            }
         }
 
         protected override void Move()
@@ -237,5 +244,66 @@ namespace TheGame
             return img;
         }
 
+    }
+
+    public class BasicTank : BaseEnemyTank
+    {
+        public BasicTank(int initX, int initY) : base(initX, initY, 2, 1)
+        {
+            #region image
+            ImgUp = Properties.Resources.basictankUp;
+            ImgDown = Properties.Resources.basictankDown;
+            ImgLeft = Properties.Resources.basictankLeft;
+            ImgRight = Properties.Resources.basictankRight;
+            makeTransparent();
+            #endregion
+        }
+    }
+
+    public class FastTank : BaseEnemyTank
+    {
+        public FastTank(int initX, int initY) : base(initX, initY, 3, 1, 4, 2)
+        {
+            #region image
+            ImgUp = Properties.Resources.fastTankUp;
+            ImgDown = Properties.Resources.fastTankDown;
+            ImgLeft = Properties.Resources.fastTankLeft;
+            ImgRight = Properties.Resources.fastTankRight;
+            makeTransparent();
+            #endregion
+        }
+
+        protected override void Attack()
+        {
+            GameObjectManager.CreateBullet(X, Y, 1, Dir, attackPower, 10);
+        }
+    }
+
+    public class PowerTank : BaseEnemyTank
+    {
+        public PowerTank(int initX, int initY) : base(initX, initY, 3, 1)
+        {
+            #region image
+            ImgUp = Properties.Resources.powertankUp;
+            ImgDown = Properties.Resources.powertankDown;
+            ImgLeft = Properties.Resources.powertankLeft;
+            ImgRight = Properties.Resources.powertankRight;
+            makeTransparent();
+            #endregion
+        }
+    }
+
+    public class ArmorTank : BaseEnemyTank
+    {
+        public ArmorTank(int initX, int initY) : base(initX, initY, 2, 3)
+        {
+            #region image
+            ImgUp = Properties.Resources.armortankUp;
+            ImgDown = Properties.Resources.armortankDown;
+            ImgLeft = Properties.Resources.armortankLeft;
+            ImgRight = Properties.Resources.armortankRight;
+            makeTransparent();
+            #endregion
+        }
     }
 }

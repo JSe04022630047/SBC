@@ -47,6 +47,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.progressBarShield = new System.Windows.Forms.ProgressBar();
             this.label6 = new System.Windows.Forms.Label();
+            this.labelScore = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.panelStat.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,6 +64,8 @@
             // panelStat
             // 
             this.panelStat.BackColor = System.Drawing.Color.Bisque;
+            this.panelStat.Controls.Add(this.label7);
+            this.panelStat.Controls.Add(this.labelScore);
             this.panelStat.Controls.Add(this.labelY);
             this.panelStat.Controls.Add(this.labelX);
             this.panelStat.Controls.Add(this.progressEnemyLeft);
@@ -83,7 +87,7 @@
             // labelY
             // 
             this.labelY.AutoSize = true;
-            this.labelY.Location = new System.Drawing.Point(16, 267);
+            this.labelY.Location = new System.Drawing.Point(38, 244);
             this.labelY.Name = "labelY";
             this.labelY.Size = new System.Drawing.Size(51, 20);
             this.labelY.TabIndex = 5;
@@ -92,7 +96,7 @@
             // labelX
             // 
             this.labelX.AutoSize = true;
-            this.labelX.Location = new System.Drawing.Point(16, 247);
+            this.labelX.Location = new System.Drawing.Point(38, 224);
             this.labelX.Name = "labelX";
             this.labelX.Size = new System.Drawing.Size(51, 20);
             this.labelX.TabIndex = 5;
@@ -149,7 +153,6 @@
             this.labelEnemyLeft.Size = new System.Drawing.Size(70, 20);
             this.labelEnemyLeft.TabIndex = 1;
             this.labelEnemyLeft.Text = "10";
-            this.labelEnemyLeft.TextChanged += new System.EventHandler(this.labelEnemyLeft_TextChanged);
             // 
             // labelPlyHP
             // 
@@ -225,12 +228,31 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(836, 713);
+            this.label6.Location = new System.Drawing.Point(841, 713);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(96, 20);
             this.label6.TabIndex = 5;
             this.label6.Text = "Shield Timer";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelScore
+            // 
+            this.labelScore.BackColor = System.Drawing.Color.SeaShell;
+            this.labelScore.Location = new System.Drawing.Point(11, 337);
+            this.labelScore.Name = "labelScore";
+            this.labelScore.Size = new System.Drawing.Size(113, 21);
+            this.labelScore.TabIndex = 6;
+            this.labelScore.Text = "0123456789";
+            this.labelScore.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(38, 316);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(51, 20);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Score";
             // 
             // GameForm
             // 
@@ -284,5 +306,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ProgressBar progressBarShield;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label labelScore;
+        private System.Windows.Forms.Label label7;
     }
 }

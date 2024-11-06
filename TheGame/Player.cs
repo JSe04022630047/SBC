@@ -16,7 +16,7 @@ namespace TheGame
         public bool IsMoving { get; set; }
         public Direction lastDirection = 0;
         private int initX = 0, initY = 0;
-        public PlyTank(int initX, int initY, int HP = 1) : base(initX, initY, 4, HP)
+        public PlyTank(int initX, int initY, int HP = 1) : base(initX, initY, 5, HP)
         {
             #region image
             Bitmap[] bitmaps = { Properties.Resources.playerUp, Properties.Resources.playerDown, Properties.Resources.playerLeft, Properties.Resources.playerRight };
@@ -61,25 +61,25 @@ namespace TheGame
             switch (Dir)
             {
                 case Direction.Up:
-                    if (Y - Speed < 0 + Height / 2)
+                    if (Y - Speed < 0)
                     {
                         IsMoving = false; return;
                     }
                     break;
                 case Direction.Down:
-                    if (Y + Speed + Height > 800 + Height / 2)
+                    if (Y + Speed + Height/4 > 800)
                     {
                         IsMoving = false; return;
                     }
                     break;
                 case Direction.Left:
-                    if (X - Speed < 0 + Width / 2)
+                    if (X - Speed < 0)
                     {
                         IsMoving = false; return;
                     }
                     break;
                 case Direction.Right:
-                    if (X + Speed + Width > 800 + Width / 2)
+                    if (X + Speed + Width/4 > 800)
                     {
                         IsMoving = false; return;
                     }
@@ -87,6 +87,9 @@ namespace TheGame
             }
 
             Rectangle thisHitbox = GetRectangle();
+
+            thisHitbox.Width = (int)(Width*0.8);
+            thisHitbox.Height = (int)(Height*0.8);
 
             switch (Dir)
             {
@@ -109,10 +112,41 @@ namespace TheGame
                 IsMoving = false; return;
             }
 
-            /*if (GameObjectManager.IsCollidedBase(thisHitbox))
+            if (GameObjectManager.IsCollidedBase(thisHitbox))
             {
                 IsMoving = false; return;
-            }*/
+            }
+
+            if (GameObjectManager.IsCollidedTank(thisHitbox) != null) { IsMoving = false; return; }
+
+            Powerup touchedPowerup = GameObjectManager.IsCollidedPowerup(thisHitbox);
+
+            if (touchedPowerup != null)
+            {
+                switch (touchedPowerup.thisPowerupID)
+                {
+                    case 0:
+                        GameObjectManager.GrenadePowerup();
+                        break;
+                    case 1:
+                        SetShield(15 * Globals.SLEEPTIME);
+                        break;
+                    case 2:
+                        GameObjectManager.SetHQShield();
+                        break;
+                    case 3:
+                        attackPower++;
+                        break;
+                    case 4:
+                        GameObjectManager.IncreaseLife();
+                        break;
+                    case 5:
+                        MessageBox.Show("NOT IMPLEMENTED");
+                        break;
+                }
+                touchedPowerup.IsDestory = true;
+
+            }
         }
 
         protected override void Move()
@@ -149,7 +183,7 @@ namespace TheGame
                     IsMoving = true;
                     if (lastDirection != Dir)
                     {
-                        X = (((X - (Width / 2)) / 16) * 16) + (Width / 2);
+                        X = (int)(X / 16.0) * 16;
                         lastDirection = Dir;
                     }
                     break;
@@ -159,7 +193,7 @@ namespace TheGame
                     IsMoving = true;
                     if (lastDirection != Dir)
                     {
-                        X = ((X + (Width / 2)) / 16) * 16 - (Width / 2);
+                        X = (int)(X / 16.0) * 16;
                         lastDirection = Dir;
                     }
                     break;
@@ -169,7 +203,7 @@ namespace TheGame
                     IsMoving = true;
                     if (lastDirection != Dir)
                     {
-                        Y = (((Y - (Height / 2)) / 16) * 16) + (Height / 2);
+                        Y = (int)(Y / 16.0) * 16;
                         lastDirection = Dir;
                     }
                     break;
@@ -179,7 +213,7 @@ namespace TheGame
                     IsMoving = true;
                     if (lastDirection != Dir)
                     {
-                        Y = ((Y + (Height / 2)) / 16) * 16 - (Height / 2);
+                        Y = (int)(Y / 16.0) * 16;
                         lastDirection = Dir;
                     }
                     break;

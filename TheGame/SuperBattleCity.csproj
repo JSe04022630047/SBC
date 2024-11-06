@@ -46,34 +46,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameFramework.cs" />
+    <Compile Include="GameController.cs" />
     <Compile Include="GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GameForm.Designer.cs">
       <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameObjectManager.cs" />
-    <Compile Include="GameObjects\Bullet.cs" />
-    <Compile Include="GameObjects\Enemies\BaseEnemyTank.cs" />
-    <Compile Include="GameObjects\Enemies\ArmorTank.cs" />
-    <Compile Include="GameObjects\Enemies\PowerTank.cs" />
-    <Compile Include="GameObjects\Enemies\FastTank.cs" />
-    <Compile Include="GameObjects\Enemies\BasicTank.cs" />
-    <Compile Include="GameObjects\Explosion.cs" />
-    <Compile Include="GameObjects\PlyTank.cs" />
-    <Compile Include="GameObjects\Powerup.cs" />
-    <Compile Include="GameObjects\Shield.cs" />
-    <Compile Include="GameObjects\StaticObject\brickWall.cs" />
-    <Compile Include="GameObjects\StaticObject\bush.cs" />
-    <Compile Include="GameObjects\StaticObject\hq.cs" />
-    <Compile Include="GameObjects\StaticObject\water.cs" />
-    <Compile Include="GameObjects\StaticObject\ironblock.cs" />
-    <Compile Include="GameObjects\Tank.cs" />
+    <Compile Include="Battlefiled.cs" />
+    <Compile Include="Bullet.cs" />
+    <Compile Include="EnemyTank.cs" />
+    <Compile Include="Explosion.cs" />
+    <Compile Include="Grenade.cs" />
+    <Compile Include="Highscores.cs" />
+    <Compile Include="plus1Life.cs" />
+    <Compile Include="TankShield.cs" />
+    <Compile Include="StarUpgrade.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="HQShield.cs" />
+    <Compile Include="BasePowerup.cs" />
+    <Compile Include="Shield.cs" />
+    <Compile Include="HeadQuarter.cs" />
+    <Compile Include="Wall.cs" />
+    <Compile Include="BaseTank.cs" />
     <Compile Include="Misc.cs" />
-    <Compile Include="ObjStuff\GameObj.cs" />
-    <Compile Include="ObjStuff\MovingObj.cs" />
-    <Compile Include="ObjStuff\NoMovingObj.cs" />
+    <Compile Include="BaseObject\GameObj.cs" />
+    <Compile Include="BaseObject\MovingObj.cs" />
+    <Compile Include="BaseObject\NoMovingObj.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SoundMan.cs" />
@@ -83,11 +82,11 @@
     <Compile Include="TextInputForm.Designer.cs">
       <DependentUpon>TextInputForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Title.cs">
+    <Compile Include="TitleForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Title.Designer.cs">
-      <DependentUpon>Title.cs</DependentUpon>
+    <Compile Include="TitleForm.Designer.cs">
+      <DependentUpon>TitleForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
@@ -105,8 +104,8 @@
     <EmbeddedResource Include="TextInputForm.resx">
       <DependentUpon>TextInputForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Title.resx">
-      <DependentUpon>Title.cs</DependentUpon>
+    <EmbeddedResource Include="TitleForm.resx">
+      <DependentUpon>TitleForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -168,6 +167,8 @@
     <None Include="image\tanks\armor\armortankDown.png" />
     <None Include="image\shield\shield0.png" />
     <None Include="image\shield\shield1.png" />
+    <None Include="image\gameover.png" />
+    <None Include="image\bush.png" />
     <Content Include="maps\map0.txt" />
     <None Include="Resources\brick.png" />
   </ItemGroup>

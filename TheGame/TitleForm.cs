@@ -10,18 +10,18 @@ using System.Windows.Forms;
 
 namespace TheGame
 {
-    public partial class Title : Form
+    public partial class TitleForm : Form
     {
-        public Title()
+        public TitleForm()
         {
             InitializeComponent();
+            Highscores.LoadScores();
         }
 
         private void labelTestEnter_Click(object sender, EventArgs e)
         {
             string name = String.Empty;
-            TextInputForm nameInput = new TextInputForm("Put your name in the box here");
-            nameInput.Tag = "name";
+            TextInputForm nameInput = new TextInputForm("Put your name in the box here", "name");
             nameInput.Text = "Please input your name";
             if (nameInput.ShowDialog() == DialogResult.OK)
             {

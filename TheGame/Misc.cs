@@ -63,6 +63,7 @@ namespace TheGame
     {
         public const int FRAMERATE = 120;
         public const int SLEEPTIME = 1000 / FRAMERATE;
+        public const bool DEBUG = true;
     }
 
 }

@@ -1,27 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-using TheGame.GameObjects.StaticObject;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TheGame
 {
     public static class GameObjectManager
     {
         private static int totalPoints = 0;
+        public static int Points {  get { return totalPoints; } }
 
         private static Random r = new Random();
         private static int playerLife = 2;
         public static int PlayerLife { get { return playerLife; } }
         public static int lastMaxShieldTime;
         private static bool playerRespawning;
+        public static bool PlayerRespawning { get { return playerRespawning; } }
         private static int level = 0;
+        public static bool HQHasShield {  get { return plyBase.ShieldTime>0; } }
+
+        private static int enemySpawnTime = 15 * Globals.SLEEPTIME;
+        private static int enemySpawnCount = 0;
+        public static int EnemyCount {  get { return pendingTanks.Count; } }
 
         public static int Level { get { return level; } }
         private static List<NoMovingObj> walls = new List<NoMovingObj>();
@@ -29,6 +30,8 @@ namespace TheGame
         private static List<NoMovingObj> water = new List<NoMovingObj>();
         private static List<Powerup> powerups = new List<Powerup>();
         private static List<Shield> activeShields = new List<Shield>();
+        private static List<HQShieldVisual> activeHQShields = new List<HQShieldVisual>();
+
         private static HQ plyBase;
         private static PlyTank player;
 
@@ -38,27 +41,63 @@ namespace TheGame
 
         private static List<BaseEnemyTank> enemyTanks = new List<BaseEnemyTank>();
 
-        private static List<BaseEnemyTank> pendingTanks = new List<BaseEnemyTank>();
+        private static List<Point> enemySpawn = new List<Point>();
+        private static List<int> pendingTanks = new List<int>();
+        public static int EnemyLeft { get { return pendingTanks.Count + enemyTanks.Count; } }
         
 
         public static void loadMap(int map)
         {
+            clearLevel();
             switch (map)
             {
                 case 0:
                     genMap(Properties.Resources.map0.Split(new string[] { Environment.NewLine }, StringSplitOptions.None));
                     break;
+                case 1:
+                    genMap(Properties.Resources.map1.Split(new string[] { Environment.NewLine }, StringSplitOptions.None));
+                    break;
+                case 2:
+                    genMap(Properties.Resources.map1.Split(new string[] { Environment.NewLine }, StringSplitOptions.None));
+                    break;
             }
+        }
+
+        public static void clearLevel()
+        {
+            lastMaxShieldTime = 0;
+            walls.Clear();
+            bushes.Clear();
+            water.Clear(); // in case we have to add water
+            powerups.Clear();
+            activeShields.Clear();
+            activeHQShields.Clear();
+            plyBase = null;
+            player = null;
+            bullets.Clear();
+            explosions.Clear();
+            enemyTanks.Clear();
+            enemySpawn.Clear();
+            pendingTanks.Clear();
+        }
+
+        public static void ResetScore()
+        {
+            totalPoints = 0;
         }
 
         public static void loadLevel()
         {
-            loadMap(Level);
+            loadMap(level);
         }
 
         public static void increaseLevel()
         {
             level++;
+            if (level > 2)
+            {
+                GameFramework.ChangeToWon();
+            }
         }
 
         public static PlyTank getPlayer() { return player; }
@@ -78,14 +117,51 @@ namespace TheGame
                     {
                         addWall(new IronBlock(j * 16, i * 16));
                     }
+                    else if (curI == 'q')
+                    {
+                        CreateHQ(j * 16, i * 16);
+                    }
+                    else if (curI == 'm')
+                    {
+                        addBush(new Bush(j * 16, i * 16));
+                    }
+                    else if (curI == 's')
+                    {
+                        enemySpawn.Add(new Point(16 * j, 16 * i));
+                    }
                 }
             }
-            Console.WriteLine(walls.ToString());
+
+            string[] enemySpawnPoolStr = data[50].Split('|');
+            int[] enemySpawnPool = new int[4];
+
+            for (int i = 0; i < 4; i++) 
+            {
+                if (enemySpawnPoolStr[i] == null) break;
+                enemySpawnPool[i] = Convert.ToInt32(enemySpawnPoolStr[i]);
+            }
+
+            while (true)
+            { 
+                if (enemySpawnPool[0] == 0 && enemySpawnPool[1] == 0 && enemySpawnPool[2] == 0 && enemySpawnPool[3] == 0) break;
+                // ^^^^ check if enemySpawnPool is empty, if yes just exit out of the loop
+
+                int pick = r.Next(0, 3); // 0 = basic, 1 = fast, 2 = power, 3 = armor
+                if (enemySpawnPool[pick] == 0) continue;
+                enemySpawnPool[pick] -= 1;
+                pendingTanks.Add(pick);
+            }
+            
         }
 
-        public static void addWall(object wall)
+        public static void addWall(NoMovingObj wall)
         {
-            walls.Add((NoMovingObj)wall);
+            walls.Add(wall);
+        }
+        
+        public static void addBush(Bush bush)
+        {
+            bushes.Add(bush);
         }
 
         public static void removeWall(object wall)
@@ -100,12 +176,6 @@ namespace TheGame
                 GameFramework.ChangeToGM();
             }
 
-            foreach (Bullet bullet in bullets)
-            {
-                bullet.Update();
-            }
-            CheckAndDestoryBullets();
-
             foreach (Explosion explode in explosions)
             {
                 explode.Update();
@@ -119,6 +189,14 @@ namespace TheGame
                 player.Death();
             }
 
+            List<Bullet> bulletsToCheck = new List<Bullet>(bullets);
+            foreach (Bullet bullet in bulletsToCheck)
+            {
+                bullet.Update();
+            }
+
+            CheckAndDestoryBullets();
+
             foreach (BaseEnemyTank tank in enemyTanks)
             {
                 tank.Update();
@@ -129,13 +207,28 @@ namespace TheGame
                 wall.Update();
             }
 
+            plyBase.Update();
             player.Update();
 
             foreach (Shield shield in activeShields)
             {
                 shield.Update();
             }
+            foreach (HQShieldVisual shield in activeHQShields)
+            {
+                shield.Update();
+            }
             CheckAndDestoryShields();
+
+            foreach (Powerup pwup in powerups)
+            {
+                pwup.Update();
+            }
+            CheckAndDestoryPowerups();
+
+            foreach (Bush bush in bushes) { bush.Update(); }
+
+            EnemySpawn();
         }
 
         public static void PlayerFinishedRespawning()
@@ -188,7 +281,36 @@ namespace TheGame
             }
             foreach (Shield shield in needToDestory)
             {
-                activeShields.Remove(shield);
+                RemoveShield(shield);
+            }
+
+            List<HQShieldVisual> needToDestory1 = new List<HQShieldVisual>();
+            foreach (HQShieldVisual shield in activeHQShields)
+            {
+                if (shield.Following.ShieldTime <= 0)
+                {
+                    needToDestory1.Add(shield);
+                }
+            }
+            foreach (HQShieldVisual shield in needToDestory1)
+            {
+                RemoveShield(shield);
+            }
+        }
+
+        private static void CheckAndDestoryPowerups()
+        {
+            List<Powerup> needToDestory = new List<Powerup>();
+            foreach (Powerup powerup in powerups)
+            {
+                if (powerup.IsDestory)
+                {
+                    needToDestory.Add(powerup);
+                }
+            }
+            foreach (Powerup powerup in needToDestory)
+            {
+                powerups.Remove(powerup);
             }
         }
 
@@ -256,9 +378,9 @@ namespace TheGame
             else { removeWall(wall); }
         }
 
-        public static void CreateBullet(int x, int y, int tag, Direction dir,int power)
+        public static void CreateBullet(int x, int y, int tag, Direction dir,int power, int speed=7)
         {
-            Bullet bullet = new Bullet(x, y, 7, dir, tag,power);
+            Bullet bullet = new Bullet(x, y, speed, dir, tag,power);
             bullets.Add(bullet);
         }
 
@@ -274,9 +396,30 @@ namespace TheGame
             activeShields.Add(newShield);
         }
 
+        public static void CreateShield(int x, int y, HQ hqToFollow)
+        {
+            HQShieldVisual newShield = new HQShieldVisual(x, y, hqToFollow);
+            activeHQShields.Add(newShield);
+        }
+
         public static void CreatePowerup(int x, int y, PowerupID powerup)
         {
-            Powerup pwup = new Powerup(x, y, powerup);
+            Powerup pwup; // I don't understand why professor wants us to sperate them.
+            switch (powerup)
+            {
+                case PowerupID.Grenade:
+                    pwup = new Grenade(x, y); break;
+                case PowerupID.Helmet:
+                    pwup = new TankShield(x, y); break;
+                case PowerupID.Shovel:
+                    pwup = new HQShield(x, y); break;
+                case PowerupID.Star:
+                    pwup = new StarUpgrade(x, y); break;
+                case PowerupID.Tank:
+                    pwup = new _1Up(x, y); break;
+                default:
+                    pwup = new Powerup(x, y, powerup); break;
+            }
             powerups.Add(pwup);
         }
 
@@ -290,41 +433,67 @@ namespace TheGame
             plyBase = new HQ(x, y);
         }
 
-        public static void CreateTestEnemyTank(int x, int y)
+        
+
+        public static void CreateEnemyTank(int x, int y, int type)
         {
-            BaseEnemyTank tank = new BaseEnemyTank(x, y, 2);
+            BaseEnemyTank tank;
+            switch (type)
+            {
+                case 0:
+                    tank = new BasicTank(x, y); break;
+                case 1:
+                    tank = new FastTank(x, y); break;
+                case 2:
+                    tank = new PowerTank(x, y); break;
+                case 3:
+                    tank = new ArmorTank(x, y); break;
+                default:
+                    tank = new BaseEnemyTank(x, y, 1); break;
+
+            }
             enemyTanks.Add(tank);
         }
 
-        public static void CreateNormalEnemyTank(int x, int y)
+        private static void EnemySpawn()
         {
-            BasicTank tank = new BasicTank(x, y);
-            enemyTanks.Add(tank);
-        }
+            if (pendingTanks.Count <= 0 || enemySpawn.Count <= 0) return;
 
-        public static void CreateFastEnemyTank(int x, int y)
-        {
-            FastTank tank = new FastTank(x, y);
-            enemyTanks.Add(tank);
-        }
+            enemySpawnCount++;
+            if (enemySpawnCount < enemySpawnTime) return;
 
-        public static void CreatePowerEnemyTank(int x, int y)
-        {
-            PowerTank tank = new PowerTank(x, y);
-            enemyTanks.Add(tank);
-        }
+            int indexPoint = r.Next(0, enemySpawn.Count);
+            Point toSpawnAt = enemySpawn[indexPoint];
 
-        public static void CreateArmorEnemyTank(int x, int y)
-        {
-            ArmorTank tank = new ArmorTank(x, y);
-            enemyTanks.Add(tank);
+            switch (pendingTanks[0])
+            {
+                case 0:
+                    CreateEnemyTank(toSpawnAt.X, toSpawnAt.Y, pendingTanks[0]);
+                    break;
+                case 1:
+                    CreateEnemyTank(toSpawnAt.X, toSpawnAt.Y, pendingTanks[0]);
+                    break;
+                case 2:
+                    CreateEnemyTank(toSpawnAt.X, toSpawnAt.Y, pendingTanks[0]);
+                    break;
+                case 3:
+                    CreateEnemyTank(toSpawnAt.X, toSpawnAt.Y, pendingTanks[0]);
+                    break;
+                default: // this can't happen right?
+                    MessageBox.Show(pendingTanks[0].ToString() + " index does not correspond to any existing tank!\nWhat happened?");
+                    CreateEnemyTank(toSpawnAt.X, toSpawnAt.Y, -1); break;
+            }
+            pendingTanks.RemoveAt(0);
+
+            enemySpawnCount = 0;
+
         }
 
         public static void RemoveTank(BaseEnemyTank tank, bool grantPoints=true)
         {
             if (tank.CanDropPowerup)
             {
-
+                CreatePowerup((int)GetRanCoord(),(int)GetRanCoord(), (PowerupID)r.Next(0, 4));
             }
             if (grantPoints)
             {
@@ -340,6 +509,11 @@ namespace TheGame
         public static void RemoveShield(Shield shield)
         {
             activeShields.Remove(shield);
+        }
+
+        public static void RemoveShield(HQShieldVisual shield)
+        {
+            activeHQShields.Remove(shield);
         }
 
         public static void HurtTank(BaseEnemyTank tank, int power)
@@ -362,17 +536,17 @@ namespace TheGame
 
         public static NoMovingObj[] CollidedWalls(Rectangle hitbox)
         {
-            NoMovingObj[] toReturn = new NoMovingObj[8];
-            int curr = 0;
+            NoMovingObj[] toReturn = new NoMovingObj[10];
+            int index = 0;
             foreach (NoMovingObj wall in walls)
             {
                 if (wall.GetRectangle().IntersectsWith(hitbox))
                 {
-                    toReturn[curr] = wall;
-                    curr++;
+                    toReturn[index] = wall;
+                    index++;
                 }
             }
-            if (toReturn[0] == null) { return null; }
+            if (toReturn[0] == null) return null;
             return toReturn;
         }
 
@@ -384,6 +558,19 @@ namespace TheGame
                 {
                     bullet.IsDestory = true;
                     return bullet;
+                }
+            }
+            return null;
+        }
+
+        public static Powerup IsCollidedPowerup(Rectangle hitbox)
+        {
+            foreach (Powerup pwup in powerups)
+            {
+                if (pwup.GetRectangle().IntersectsWith(hitbox))
+                {
+                    pwup.IsDestory = true;
+                    return pwup;
                 }
             }
             return null;
@@ -418,6 +605,35 @@ namespace TheGame
             }
             return null;
         }
+
+        #region Powerup Effects
+
+        public static void GrenadePowerup()
+        {
+            List<BaseEnemyTank> toDestroy = new List<BaseEnemyTank>();
+            foreach (BaseEnemyTank tank in enemyTanks)
+            {
+
+                toDestroy.Add(tank);
+            }
+            foreach(BaseEnemyTank tank in toDestroy)
+            {
+                CreateExplosion(tank.X, tank.Y);
+                RemoveTank(tank, false);
+            }
+        }
+
+        public static void SetHQShield(int second = 10)
+        {
+            plyBase.SetShield(second*60);
+        }
+
+        public static void IncreaseLife(int amount = 1)
+        {
+            playerLife += amount;
+        }
+        #endregion
+
 
         public static void KeyDown(KeyEventArgs args)
         {

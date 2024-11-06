@@ -19,6 +19,8 @@ namespace TheGame
         private static Graphics windowsG;
         private static Bitmap tempBitmap;
         private bool paused=false;
+        private bool gameover=false;
+        private bool won=false;
         public string name;
         public GameForm(string name)
         {
@@ -31,41 +33,79 @@ namespace TheGame
             t.Start();
             this.name = name;
             labelPlyName.Text = name;
+
+            if (!Globals.DEBUG)
+            {
+#pragma warning disable CS0162 // Unreachable code detected
+                labelX.Hide();
+                labelY.Hide();
+#pragma warning restore CS0162 // Unreachable code detected
+            }
         }
 
         private void GameMainThread()
         {
             GameFramework.Start();
 
+            int ticksToWait = Globals.FRAMERATE;
+            int ticksCounter = 0;
+
             while (true)
             {
+                if (gameover)
+                {
+                    ticksCounter++;
+                    if (ticksCounter > ticksToWait) { break; }
+                }
                 mrse.WaitOne();
-                GameFramework.g.Clear(Color.Black);
-                GameFramework.Update();
-                windowsG.DrawImage(tempBitmap, 0, 0);
-                WriteLabelSafe(labelX, GameObjectManager.getPlayer().X.ToString());
-                WriteLabelSafe(labelY, GameObjectManager.getPlayer().Y.ToString());
-                WriteLabelSafe(labelPlyHP, GameObjectManager.getPlayer().HP.ToString());
-                WriteLabelSafe(labelLife, GameObjectManager.PlayerLife.ToString());
-                WriteProgressBarSafe(progressRespawnTime, GameObjectManager.getPlayer().respawnTimeCounter, GameObjectManager.getPlayer().respawnTime);
-                WriteProgressBarSafe(progressBarShield, GameObjectManager.getPlayer().ShieldTime, GameObjectManager.lastMaxShieldTime);
+                switch (GameFramework.GameState)
+                {
+                    case GameState.Play:
+                        GameFramework.g.Clear(Color.Black);
+                        GameFramework.Update();
+                        windowsG.DrawImage(tempBitmap, 0, 0);
+                        WriteLabelSafe(labelX, GameObjectManager.getPlayer().X.ToString());
+                        WriteLabelSafe(labelY, GameObjectManager.getPlayer().Y.ToString());
+                        WriteLabelSafe(labelPlyHP, GameObjectManager.getPlayer().HP.ToString());
+                        WriteLabelSafe(labelLife, GameObjectManager.PlayerLife.ToString());
+                        WriteLabelSafe(labelScore, GameObjectManager.Points.ToString());
+                        WriteLabelSafe(labelEnemyLeft, GameObjectManager.EnemyLeft.ToString());
+                        WriteProgressBarSafe(progressRespawnTime, GameObjectManager.getPlayer().respawnTimeCounter, GameObjectManager.getPlayer().respawnTime);
+                        WriteProgressBarSafe(progressBarShield, GameObjectManager.getPlayer().ShieldTime, GameObjectManager.lastMaxShieldTime);
+                        break;
+                    case GameState.Inter:
+                        GameFramework.g.Clear(Color.Black);
+                        GameFramework.Update();
+                        windowsG.DrawImage(tempBitmap, 0, 0);
+                        WriteProgressBarSafe(progressRespawnTime, 0, 0);
+                        WriteProgressBarSafe(progressBarShield, 0, 0);
+                        break;
+                    case GameState.Over:
+                        GameFramework.g.Clear(Color.Black);
+                        GameFramework.Update();
+                        windowsG.DrawImage(tempBitmap, 0, 0);
+                        WriteProgressBarSafe(progressRespawnTime, 0, 0);
+                        WriteProgressBarSafe(progressBarShield, 0, 0);
+                        gameover = true;
+                        break;
+                    case GameState.Win:
+                        gameover = true;
+                        won = true;
+                        break;
+                }
                 Thread.Sleep(Globals.SLEEPTIME);
             }
+            Highscores.AddScore(name, GameObjectManager.Points);
+            
         }
         private void GameForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             t.Abort();
         }
 
-        private void labelEnemyLeft_TextChanged(object sender, EventArgs e)
-        {
-            //progressEnemyLeft.SetBounds(0,Game)
-        }
-
         #region Hud
 
         public delegate void SafeSetLabelDelegate(Label label, string text);
-
         public delegate void SafeSetProgressBarDelegate(ProgressBar progressBar, int value, int max);
 
         private void WriteLabelSafe(Label label, string text)

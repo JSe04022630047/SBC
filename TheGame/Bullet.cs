@@ -76,10 +76,11 @@ namespace TheGame
                 return;
             }
 
-            /*if (GameObjectManager.IsCollidedBase(hitbox))
+            if (GameObjectManager.IsCollidedBase(hitbox))
             {
-                // todo
-            }*/
+                if (GameObjectManager.HQHasShield) { IsDestory = true; return; }
+                GameFramework.ChangeToGM();
+            }
 
             if (Tag == 0)
             {

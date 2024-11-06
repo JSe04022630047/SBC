@@ -11,6 +11,7 @@ namespace TheGame
     public class GameFramework
     {
         private static GameState gameState = GameState.Play;
+        public static GameState GameState { get { return gameState; } }
         public static Graphics g;
         private static int intermissionCounter;
         private static int intermissionTime = 10 * Globals.SLEEPTIME;
@@ -19,11 +20,11 @@ namespace TheGame
         private static bool skipInter = false;
         public static void Start()
         {
+            GameObjectManager.ResetScore();
             GameObjectManager.lastMaxShieldTime = 0;
             SoundManager.PlayStart();
             GameObjectManager.loadLevel();
-            GameObjectManager.CreatePlyTank(10 * 32, 24 * 32);
-            GameObjectManager.CreateArmorEnemyTank(2 * 32, 3 * 32);
+            CreatePlayerTank();
         }
 
         public static void Update()
@@ -37,6 +38,9 @@ namespace TheGame
                 case GameState.Inter:
                     IntermissionUpdate();
                     break;
+                case GameState.Over:
+                    GameOverUpdate();
+                    break;
             }
 
         }
@@ -44,12 +48,33 @@ namespace TheGame
         private static void IntermissionUpdate()
         {
             intermissionCounter++;
+            Bitmap bmp = Properties.Resources.gameover;
+            bmp.MakeTransparent(Color.Black);
+            int x = 800 / 2 - Properties.Resources.gameover.Width / 2;
+            int y = 800 / 2 - Properties.Resources.gameover.Height / 2;
+            g.DrawImage(bmp, x, y);
             if (intermissionCounter < intermissionTime || !skipInter) return;
             skipInter = false;
             GameObjectManager.increaseLevel();
-            GameObjectManager.CreatePlyTank(10 * 32, 24 * 32);
+            GameObjectManager.loadLevel();
+            CreatePlayerTank();
+            intermissionCounter = 0;
             gameTick = 0;
             gameState = GameState.Play;
+        }
+
+        private static void GameOverUpdate()
+        {
+            Bitmap bmp = Properties.Resources.gameover;
+            bmp.MakeTransparent(Color.Black);
+            int x = 800 / 2 - Properties.Resources.gameover.Width / 2;
+            int y = 800 / 2 - Properties.Resources.gameover.Height / 2;
+            g.DrawImage(bmp, x, y);
+        }
+
+        private static void CreatePlayerTank()
+        {
+            GameObjectManager.CreatePlyTank(11 * 32, 24 * 32);
         }
 
         public static void ChangeToIntermission()
@@ -60,6 +85,11 @@ namespace TheGame
         public static void ChangeToGM()
         {
             gameState = GameState.Over;
+        }
+
+        public static void ChangeToWon()
+        {
+            gameState = GameState.Win;
         }
 
         public static void KeyDown(KeyEventArgs e)

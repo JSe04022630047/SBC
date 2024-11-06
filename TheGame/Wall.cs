@@ -10,7 +10,7 @@ namespace TheGame
     public class BrickWall : NoMovingObj
     {
         private BrickState state;
-        public BrickWall(int x, int y) : base (x, y, new Bitmap(16,16))
+        public BrickWall(int x, int y) : base(x, y, new Bitmap(16, 16))
         {
             state = 0; // basically brickState.None
         }
@@ -64,5 +64,15 @@ namespace TheGame
             bitmap.MakeTransparent(Color.FromArgb(0, 255, 0));
             return bitmap;
         }
+    }
+
+    public class IronBlock : NoMovingObj
+    {
+        public IronBlock(int x, int y) : base(x, y, Properties.Resources.ironblock) { }
+    }
+
+    public class Bush : NoMovingObj
+    {
+        public Bush(int x, int y) : base(x, y, Properties.Resources.bush) { }
     }
 }

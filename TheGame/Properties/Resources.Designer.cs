@@ -313,6 +313,16 @@ namespace TheGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bush {
+            get {
+                object obj = ResourceManager.GetObject("bush", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Clock {
             get {
                 object obj = ResourceManager.GetObject("Clock", resourceCulture);
@@ -393,6 +403,16 @@ namespace TheGame.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap gameover {
+            get {
+                object obj = ResourceManager.GetObject("gameover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Grenade {
             get {
                 object obj = ResourceManager.GetObject("Grenade", resourceCulture);
@@ -422,7 +442,7 @@ namespace TheGame.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to dd............................................dddd
-        ///................................................dd
+        ///.s.......................s...................s..dd
         ///................................................dd
         ///................................................dd
         ///................................................dd
@@ -435,6 +455,24 @@ namespace TheGame.Properties {
         internal static string map0 {
             get {
                 return ResourceManager.GetString("map0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ..................................................
+        ///.s.......................s...................s....
+        ///..................................................
+        ///..................................................
+        ///..................................................
+        ///..................................................
+        ///..................................................
+        ///..................................................
+        ///..................................................
+        ///............................................ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string map1 {
+            get {
+                return ResourceManager.GetString("map1", resourceCulture);
             }
         }
         

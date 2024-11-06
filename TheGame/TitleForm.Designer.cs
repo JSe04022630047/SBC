@@ -1,6 +1,6 @@
 ﻿namespace TheGame
 {
-    partial class Title
+    partial class TitleForm
     {
         /// <summary>
         /// Required designer variable.
