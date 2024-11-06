@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace TheGame
 {
@@ -32,6 +33,13 @@ namespace TheGame
                 this.Close();
             }
             
+        }
+
+        private void labelLeaderBoard_Click(object sender, EventArgs e)
+        {
+            FormLeaderBoard leaderboard = new FormLeaderBoard(this);
+            this.Hide();
+            leaderboard.ShowDialog();
         }
     }
 }

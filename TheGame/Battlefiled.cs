@@ -24,7 +24,10 @@ namespace TheGame
         private static int enemySpawnCount = 0;
         public static int EnemyCount {  get { return pendingTanks.Count; } }
 
-        public static int Level { get { return level; } }
+        private static int preIntermissionCounter;
+        private const int preIntermissionTime = 5 * Globals.SLEEPTIME;
+
+        public static int Level { get { return level+1; } }
         private static List<NoMovingObj> walls = new List<NoMovingObj>();
         private static List<NoMovingObj> bushes = new List<NoMovingObj>();
         private static List<NoMovingObj> water = new List<NoMovingObj>();
@@ -43,6 +46,7 @@ namespace TheGame
 
         private static List<Point> enemySpawn = new List<Point>();
         private static List<int> pendingTanks = new List<int>();
+        public static int[] enemyList = new int[4];
         public static int EnemyLeft { get { return pendingTanks.Count + enemyTanks.Count; } }
         
 
@@ -65,6 +69,8 @@ namespace TheGame
 
         public static void clearLevel()
         {
+            enemyList = new int[4];
+            enemySpawnCount = 0;
             lastMaxShieldTime = 0;
             walls.Clear();
             bushes.Clear();
@@ -86,8 +92,14 @@ namespace TheGame
             totalPoints = 0;
         }
 
+        public static void IncreaseSorce(int amount = 0)
+        {
+            totalPoints += amount;
+        }
+
         public static void loadLevel()
         {
+            if (GameFramework.GameState == GameState.Win) { return; }
             loadMap(level);
         }
 
@@ -139,6 +151,7 @@ namespace TheGame
             {
                 if (enemySpawnPoolStr[i] == null) break;
                 enemySpawnPool[i] = Convert.ToInt32(enemySpawnPoolStr[i]);
+                enemyList[i] = enemySpawnPool[i];
             }
 
             while (true)
@@ -171,6 +184,23 @@ namespace TheGame
 
         public static void UpdateG()
         {
+            if (EnemyLeft == 0)
+            {
+                if (level < 2)
+                {
+                    preIntermissionCounter++;
+                    if (preIntermissionCounter > preIntermissionTime)
+                    {
+                        preIntermissionCounter = 0;
+                        GameFramework.ChangeToIntermission();
+                        return;
+                    }
+                }
+                else
+                {
+                    GameFramework.ChangeToWon();
+                }
+            }
             if (playerLife <= 0)
             {
                 GameFramework.ChangeToGM();
@@ -632,13 +662,26 @@ namespace TheGame
         {
             playerLife += amount;
         }
+
         #endregion
 
+        public static void BaseDestory()
+        {
+            plyBase.Hurt();
+            GameFramework.ChangeToGM();
+        }
 
         public static void KeyDown(KeyEventArgs args)
         {
             player.KeyDown(args);
-
+            if (Globals.DEBUG)
+            {
+                if (args.KeyCode == Keys.D9)
+                {
+                    pendingTanks.Clear();
+                    enemyTanks.Clear();
+                }
+            }
         }
 
         public static void KeyUp(KeyEventArgs args)

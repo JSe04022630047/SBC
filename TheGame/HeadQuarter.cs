@@ -60,5 +60,10 @@ namespace TheGame
             }
         }
 
+        public virtual void Hurt() 
+        {
+            hp--;
+        }
+
     }
 }

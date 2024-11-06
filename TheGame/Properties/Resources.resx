@@ -151,6 +151,9 @@
   <data name="basictankUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\image\tanks\basic\basictankUp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="bonus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\sounds\bonus.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="brick" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\image\brick.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -178,6 +181,9 @@
   <data name="brick1110" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\image\brick\brick1110.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="brickhit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\sounds\brickhit.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="bulletdown" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\image\bulletdown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -195,6 +201,12 @@
   </data>
   <data name="Clock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\image\powerups\Clock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="eexplosion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\sounds\eexplosion.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="EndGame" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\image\EndGame.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="explosion0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\image\explosion\explosion0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -217,8 +229,14 @@
   <data name="fastTankUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\image\tanks\fast\fastTankUp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="fexplosion" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\sounds\fexplosion.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="gameover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\image\gameover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gameover1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\sounds\gameover.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="Grenade" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\image\powerups\Grenade.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -226,8 +244,17 @@
   <data name="Helmet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\image\powerups\Helmet.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Intermission" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\image\Intermission.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ironblock" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\image\IronBlock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="levelstarting" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\sounds\levelstarting.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="life" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\sounds\life.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="map0" xml:space="preserve">
     <value>dd............................................dddd
@@ -280,7 +307,7 @@
 .......................dddd.......................
 .......................dq.d.......................
 .......................d..d.......................
-8|2|0|0</value>
+8|0|2|0</value>
   </data>
   <data name="map1" xml:space="preserve">
     <value>..................................................
@@ -335,6 +362,12 @@ mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 .......................d..d.......................
 8|2|0|0</value>
   </data>
+  <data name="moving" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\sounds\moving.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\sounds\pause.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="playerDown" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\image\tanks\player\playerDown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -367,6 +400,18 @@ mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
   </data>
   <data name="shield1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\image\shield\shield1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="shieldhit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\sounds\shieldhit.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="shoot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\sounds\shoot.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="steelhit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\sounds\steelhit.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="tbonushit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\sounds\tbonushit.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="_1Up" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\image\powerups\1Up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

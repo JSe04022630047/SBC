@@ -18,6 +18,7 @@ namespace TheGame
             Tag = tag;
             label1.Text = txt;
             buttonOK.DialogResult = DialogResult.OK;
+            buttonOK.Enabled = false;
             if (tag == "name") textBox.MaxLength = 12;
         }
 
@@ -26,5 +27,14 @@ namespace TheGame
             return textBox.Text;
         }
 
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+            TextBox txtBox = (TextBox)sender;
+            if (txtBox.Text.Length <= 0)
+            {
+                buttonOK.Enabled = false;
+            }
+            else { buttonOK.Enabled = true; }
+        }
     }
 }

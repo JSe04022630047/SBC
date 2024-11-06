@@ -12,6 +12,8 @@ using TheGame.Properties;
 
 namespace TheGame
 {
+
+
     public partial class GameForm : Form
     {
         private Thread t;
@@ -47,7 +49,7 @@ namespace TheGame
         {
             GameFramework.Start();
 
-            int ticksToWait = Globals.FRAMERATE;
+            int ticksToWait = 8 * Globals.SLEEPTIME;
             int ticksCounter = 0;
 
             while (true)
@@ -64,8 +66,16 @@ namespace TheGame
                         GameFramework.g.Clear(Color.Black);
                         GameFramework.Update();
                         windowsG.DrawImage(tempBitmap, 0, 0);
-                        WriteLabelSafe(labelX, GameObjectManager.getPlayer().X.ToString());
-                        WriteLabelSafe(labelY, GameObjectManager.getPlayer().Y.ToString());
+
+#pragma warning disable CS0162 // Unreachable code detected, shutup its here for a reason
+                        if (Globals.DEBUG)
+                        {
+                            WriteLabelSafe(labelX, GameObjectManager.getPlayer().X.ToString());
+                            WriteLabelSafe(labelY, GameObjectManager.getPlayer().Y.ToString());
+                        }
+#pragma warning restore CS0162 // Unreachable code detected
+
+                        WriteLabelSafe(labelLevelCount, GameObjectManager.Level.ToString());
                         WriteLabelSafe(labelPlyHP, GameObjectManager.getPlayer().HP.ToString());
                         WriteLabelSafe(labelLife, GameObjectManager.PlayerLife.ToString());
                         WriteLabelSafe(labelScore, GameObjectManager.Points.ToString());
@@ -89,6 +99,11 @@ namespace TheGame
                         gameover = true;
                         break;
                     case GameState.Win:
+                        GameFramework.g.Clear(Color.Black);
+                        GameFramework.Update();
+                        windowsG.DrawImage(tempBitmap, 0, 0);
+                        WriteProgressBarSafe(progressRespawnTime, 0, 0);
+                        WriteProgressBarSafe(progressBarShield, 0, 0);
                         gameover = true;
                         won = true;
                         break;
@@ -155,9 +170,22 @@ namespace TheGame
                     mrse.Set();
                 }
             }
-            if (e.KeyCode == Keys.Oemplus) GameFramework.ChangeToIntermission();
+            if (Globals.DEBUG) { 
+                if (e.KeyCode == Keys.Oemplus) GameFramework.ChangeToIntermission();
+                if (e.KeyCode == Keys.OemMinus) GameFramework.ChangeToGM();
+            }
             GameFramework.KeyDown(e);
-
+            if (gameover)
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    this.t.Abort();
+                    TitleForm t = new TitleForm();
+                    Hide();
+                    t.ShowDialog();
+                    Close();
+                }
+            }
         }
 
         private void GameForm_KeyUp(object sender, KeyEventArgs e)

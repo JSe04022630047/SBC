@@ -126,19 +126,27 @@ namespace TheGame
                 switch (touchedPowerup.thisPowerupID)
                 {
                     case 0:
+                        if (GameFramework.GameState == GameState.Play) SoundManager.PlayPowerUpSound();
                         GameObjectManager.GrenadePowerup();
+                        GameObjectManager.IncreaseSorce(100);
                         break;
                     case 1:
+                        if (GameFramework.GameState == GameState.Play) SoundManager.PlayPlyShieldSound();
                         SetShield(15 * Globals.SLEEPTIME);
                         break;
                     case 2:
+                        if (GameFramework.GameState == GameState.Play) SoundManager.PlayPlyShieldSound();
                         GameObjectManager.SetHQShield();
                         break;
                     case 3:
                         attackPower++;
+                        if (GameFramework.GameState == GameState.Play) SoundManager.PlayPowerUpSound();
+                        GameObjectManager.IncreaseSorce(100);
                         break;
                     case 4:
+                        if (GameFramework.GameState == GameState.Play) SoundManager.Play1UpSound();
                         GameObjectManager.IncreaseLife();
+                        GameObjectManager.IncreaseSorce(100);
                         break;
                     case 5:
                         MessageBox.Show("NOT IMPLEMENTED");
@@ -171,6 +179,7 @@ namespace TheGame
 
         protected override void Attack()
         {
+            if (GameFramework.GameState == GameState.Play) SoundManager.PlayFire();
             GameObjectManager.CreateBullet(X, Y, 0, Dir, attackPower);
         }
 

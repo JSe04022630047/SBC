@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormLeaderBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLeaderBoard.Designer.cs">
+      <DependentUpon>FormLeaderBoard.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameController.cs" />
     <Compile Include="GameForm.cs">
       <SubType>Form</SubType>
@@ -88,6 +94,9 @@
     <Compile Include="TitleForm.Designer.cs">
       <DependentUpon>TitleForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="FormLeaderBoard.resx">
+      <DependentUpon>FormLeaderBoard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -121,6 +130,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="sounds\tbonushit.wav" />
+    <None Include="sounds\steelhit.wav" />
+    <None Include="sounds\shoot.wav" />
+    <None Include="sounds\shieldhit.wav" />
+    <None Include="sounds\pause.wav" />
+    <None Include="sounds\moving.wav" />
+    <None Include="sounds\life.wav" />
+    <None Include="sounds\levelstarting.wav" />
+    <None Include="sounds\gameover.wav" />
+    <None Include="sounds\fexplosion.wav" />
+    <None Include="sounds\eexplosion.wav" />
+    <None Include="sounds\brickhit.wav" />
+    <None Include="sounds\bonus.wav" />
     <None Include="image\bulletdown.png" />
     <None Include="image\bulletleft.png" />
     <None Include="image\bulletright.png" />
@@ -169,6 +191,8 @@
     <None Include="image\shield\shield1.png" />
     <None Include="image\gameover.png" />
     <None Include="image\bush.png" />
+    <None Include="image\Intermission.png" />
+    <None Include="image\EndGame.png" />
     <Content Include="maps\map0.txt" />
     <None Include="Resources\brick.png" />
   </ItemGroup>

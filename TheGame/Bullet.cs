@@ -65,6 +65,7 @@ namespace TheGame
             NoMovingObj[] walls = GameObjectManager.CollidedWalls(hitbox);
             if (walls != null)
             {
+                if (GameFramework.GameState == GameState.Play) if (Tag == 0) SoundManager.PlayBlast();
                 IsDestory = true;
                 for (int i = 0; i < walls.Length; i++)
                 {
@@ -78,8 +79,9 @@ namespace TheGame
 
             if (GameObjectManager.IsCollidedBase(hitbox))
             {
-                if (GameObjectManager.HQHasShield) { IsDestory = true; return; }
-                GameFramework.ChangeToGM();
+                IsDestory = true;
+                if (GameObjectManager.HQHasShield) { return; }
+                GameObjectManager.BaseDestory();
             }
 
             if (Tag == 0)
@@ -87,6 +89,7 @@ namespace TheGame
                 BaseEnemyTank tank = GameObjectManager.IsCollidedTank(hitbox);
                 if (tank != null)
                 {
+                    if (GameFramework.GameState == GameState.Play) SoundManager.PlayBlast();
                     IsDestory = true;
                     GameObjectManager.HurtTank(tank, power);
                     GameObjectManager.CreateExplosion(xExplosion, yExplosion);
@@ -101,8 +104,9 @@ namespace TheGame
                     GameObjectManager.CreateExplosion(xExplosion, yExplosion);
                     if (GameObjectManager.getPlayer().ShieldTime <= 0)
                     {
-                        GameObjectManager.getPlayer().TakeDamage(power);
+                        if (GameFramework.GameState == GameState.Play) GameObjectManager.getPlayer().TakeDamage(power);
                     }
+                    else { if (GameFramework.GameState == GameState.Play) SoundManager.PlayHitShield(); }
                 }
             }
             Bullet otherBullet = GameObjectManager.IsCollideBullet(hitbox, Tag);

@@ -11,38 +11,78 @@ namespace TheGame
 {
     class SoundManager
     {
-        private static SoundPlayer uiSound = new SoundPlayer();
-        private static SoundPlayer playerSound = new SoundPlayer();
+        private static SoundPlayer startSound = new SoundPlayer();
+        private static SoundPlayer gameOverSound = new SoundPlayer();
+        private static SoundPlayer shootSound = new SoundPlayer();
+        private static SoundPlayer hitBrickSound = new SoundPlayer();
+        private static SoundPlayer hitIronSound = new SoundPlayer();
+        private static SoundPlayer shieldHitSound = new SoundPlayer();
         private static SoundPlayer blastSound = new SoundPlayer();
+
+        private static SoundPlayer powerUpSound = new SoundPlayer();
         /*TODO add sounds and test*/
+        public static void InitSound()
+        {
+            startSound.Stream = Properties.Resources.levelstarting;
+            gameOverSound.Stream = Properties.Resources.gameover1;
+            shootSound.Stream = Properties.Resources.shoot;
+            hitBrickSound.Stream = Properties.Resources.brickhit;
+            hitIronSound.Stream = Properties.Resources.steelhit;
+            shieldHitSound.Stream = Properties.Resources.shieldhit;
+            blastSound.Stream = Resources.fexplosion;
+        }
         public static void PlayStart()
         {
-            /*uiSound.Stream = Resources.*/
-            uiSound.Play();
+            startSound.Play();
         }
 
-        public static void PlayAdd()
+        public static void PlayGameOver()
         {
-            /*uiSound.Stream = Resources.*/
-            uiSound.Play();
+            startSound.Stop();
+            gameOverSound.Play();
         }
 
         public static void PlayFire()
         {
-            /*playerSound.Stream = Resources.*/
-            playerSound.Play();
+            shootSound.Play();
         }
 
-        public static void PlayHit()
+        public static void PlayHitBrick()
         {
-            /*playerSound.Stream = Resources.*/
-            playerSound.Play();
+            hitBrickSound.Play();
+        }
+
+        public static void PlayHitIron()
+        {
+            hitIronSound.Play();
+        }
+
+        public static void PlayHitShield()
+        {
+            shieldHitSound.Play();
         }
 
         public static void PlayBlast()
         {
-            /*blastSound.Stream = Resources.*/
             blastSound.Play();
+        }
+
+        public static void Play1UpSound()
+        {
+            powerUpSound.Stream = Properties.Resources.life;
+            powerUpSound.Play();
+        }
+
+        public static void PlayPlyShieldSound()
+        {
+            powerUpSound.Stream = Properties.Resources.tbonushit;
+            powerUpSound.Play();
+        }
+
+        public static void PlayPowerUpSound()
+        {
+            powerUpSound.Stream = Properties.Resources.bonus;
+            powerUpSound.Play();
         }
     }
 }

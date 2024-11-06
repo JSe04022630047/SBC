@@ -45,7 +45,7 @@ namespace TheGame
             ImgLeft = Properties.Resources.basictankLeft;
             ImgRight = Properties.Resources.basictankRight;
             makeTransparent();
-            dropPowerUp = r.Next(0, 100) < 25;
+            dropPowerUp = r.Next(0, 100) < 15;
             //dropPowerUp = true;
             flashed = false;
         }
@@ -248,7 +248,7 @@ namespace TheGame
 
     public class BasicTank : BaseEnemyTank
     {
-        public BasicTank(int initX, int initY) : base(initX, initY, 2, 1)
+        public BasicTank(int initX, int initY) : base(initX, initY, 1, 1)
         {
             #region image
             ImgUp = Properties.Resources.basictankUp;
@@ -262,7 +262,7 @@ namespace TheGame
 
     public class FastTank : BaseEnemyTank
     {
-        public FastTank(int initX, int initY) : base(initX, initY, 3, 1, 4, 2)
+        public FastTank(int initX, int initY) : base(initX, initY, 3, 2, 4, 2)
         {
             #region image
             ImgUp = Properties.Resources.fastTankUp;
@@ -281,7 +281,7 @@ namespace TheGame
 
     public class PowerTank : BaseEnemyTank
     {
-        public PowerTank(int initX, int initY) : base(initX, initY, 3, 1)
+        public PowerTank(int initX, int initY) : base(initX, initY, 2, 1)
         {
             #region image
             ImgUp = Properties.Resources.powertankUp;
