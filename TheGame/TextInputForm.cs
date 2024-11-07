@@ -35,6 +35,11 @@ namespace TheGame
                 buttonOK.Enabled = false;
             }
             else { buttonOK.Enabled = true; }
+
+            if (txtBox.Text.Contains('฿'))
+            {
+                buttonOK.Enabled = false;
+            }
         }
     }
 }
