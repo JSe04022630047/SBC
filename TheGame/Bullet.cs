@@ -58,9 +58,9 @@ namespace TheGame
             int yExplosion = Y - Height / 2;
 
             if (hitbox.X + hitbox.Width < 0) IsDestory = true;
-            else if (hitbox.X - hitbox.Width > 800) IsDestory = true;
+            else if (hitbox.X - hitbox.Width > 400) IsDestory = true;
             else if (hitbox.Y + hitbox.Height < 0) IsDestory = true;
-            else if (hitbox.Y - hitbox.Height > 800) IsDestory = true;
+            else if (hitbox.Y - hitbox.Height > 400) IsDestory = true;
 
             NoMovingObj[] walls = GameObjectManager.CollidedWalls(hitbox);
             if (walls != null)

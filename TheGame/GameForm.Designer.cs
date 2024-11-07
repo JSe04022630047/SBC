@@ -30,6 +30,8 @@
         {
             this.panelGameArea = new System.Windows.Forms.Panel();
             this.panelStat = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.labelScore = new System.Windows.Forms.Label();
             this.labelY = new System.Windows.Forms.Label();
             this.labelX = new System.Windows.Forms.Label();
             this.progressEnemyLeft = new System.Windows.Forms.ProgressBar();
@@ -47,8 +49,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.progressBarShield = new System.Windows.Forms.ProgressBar();
             this.label6 = new System.Windows.Forms.Label();
-            this.labelScore = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.panelStat.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,7 +58,7 @@
             this.panelGameArea.Location = new System.Drawing.Point(12, 12);
             this.panelGameArea.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelGameArea.Name = "panelGameArea";
-            this.panelGameArea.Size = new System.Drawing.Size(800, 800);
+            this.panelGameArea.Size = new System.Drawing.Size(400, 400);
             this.panelGameArea.TabIndex = 0;
             // 
             // panelStat
@@ -66,6 +66,7 @@
             this.panelStat.BackColor = System.Drawing.Color.Bisque;
             this.panelStat.Controls.Add(this.label7);
             this.panelStat.Controls.Add(this.labelScore);
+            this.panelStat.Controls.Add(this.labelPauseInstruct);
             this.panelStat.Controls.Add(this.labelY);
             this.panelStat.Controls.Add(this.labelX);
             this.panelStat.Controls.Add(this.progressEnemyLeft);
@@ -78,16 +79,35 @@
             this.panelStat.Controls.Add(this.label2);
             this.panelStat.Controls.Add(this.labelLevelCount);
             this.panelStat.Controls.Add(this.label1);
-            this.panelStat.Location = new System.Drawing.Point(820, 14);
+            this.panelStat.Location = new System.Drawing.Point(420, 12);
             this.panelStat.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelStat.Name = "panelStat";
-            this.panelStat.Size = new System.Drawing.Size(132, 400);
+            this.panelStat.Size = new System.Drawing.Size(132, 287);
             this.panelStat.TabIndex = 1;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(35, 205);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(51, 20);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "Score";
+            // 
+            // labelScore
+            // 
+            this.labelScore.BackColor = System.Drawing.Color.SeaShell;
+            this.labelScore.Location = new System.Drawing.Point(8, 226);
+            this.labelScore.Name = "labelScore";
+            this.labelScore.Size = new System.Drawing.Size(113, 21);
+            this.labelScore.TabIndex = 6;
+            this.labelScore.Text = "0123456789";
+            this.labelScore.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelY
             // 
             this.labelY.AutoSize = true;
-            this.labelY.Location = new System.Drawing.Point(38, 244);
+            this.labelY.Location = new System.Drawing.Point(38, 181);
             this.labelY.Name = "labelY";
             this.labelY.Size = new System.Drawing.Size(51, 20);
             this.labelY.TabIndex = 5;
@@ -96,7 +116,7 @@
             // labelX
             // 
             this.labelX.AutoSize = true;
-            this.labelX.Location = new System.Drawing.Point(38, 224);
+            this.labelX.Location = new System.Drawing.Point(38, 161);
             this.labelX.Name = "labelX";
             this.labelX.Size = new System.Drawing.Size(51, 20);
             this.labelX.TabIndex = 5;
@@ -104,14 +124,14 @@
             // 
             // progressEnemyLeft
             // 
-            this.progressEnemyLeft.Location = new System.Drawing.Point(8, 170);
+            this.progressEnemyLeft.Location = new System.Drawing.Point(7, 124);
             this.progressEnemyLeft.Name = "progressEnemyLeft";
             this.progressEnemyLeft.Size = new System.Drawing.Size(120, 23);
             this.progressEnemyLeft.TabIndex = 4;
             // 
             // labelPlyName
             // 
-            this.labelPlyName.Location = new System.Drawing.Point(4, 369);
+            this.labelPlyName.Location = new System.Drawing.Point(1, 258);
             this.labelPlyName.Name = "labelPlyName";
             this.labelPlyName.Size = new System.Drawing.Size(124, 21);
             this.labelPlyName.TabIndex = 3;
@@ -139,7 +159,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 147);
+            this.label3.Location = new System.Drawing.Point(3, 101);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 20);
             this.label3.TabIndex = 2;
@@ -148,7 +168,7 @@
             // labelEnemyLeft
             // 
             this.labelEnemyLeft.BackColor = System.Drawing.SystemColors.Control;
-            this.labelEnemyLeft.Location = new System.Drawing.Point(58, 147);
+            this.labelEnemyLeft.Location = new System.Drawing.Point(57, 101);
             this.labelEnemyLeft.Name = "labelEnemyLeft";
             this.labelEnemyLeft.Size = new System.Drawing.Size(70, 20);
             this.labelEnemyLeft.TabIndex = 1;
@@ -195,7 +215,7 @@
             // labelPauseInstruct
             // 
             this.labelPauseInstruct.AutoSize = true;
-            this.labelPauseInstruct.Location = new System.Drawing.Point(823, 419);
+            this.labelPauseInstruct.Location = new System.Drawing.Point(3, 150);
             this.labelPauseInstruct.Name = "labelPauseInstruct";
             this.labelPauseInstruct.Size = new System.Drawing.Size(129, 20);
             this.labelPauseInstruct.TabIndex = 2;
@@ -203,7 +223,7 @@
             // 
             // progressRespawnTime
             // 
-            this.progressRespawnTime.Location = new System.Drawing.Point(828, 789);
+            this.progressRespawnTime.Location = new System.Drawing.Point(424, 383);
             this.progressRespawnTime.Name = "progressRespawnTime";
             this.progressRespawnTime.Size = new System.Drawing.Size(120, 23);
             this.progressRespawnTime.TabIndex = 4;
@@ -211,7 +231,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(828, 766);
+            this.label4.Location = new System.Drawing.Point(424, 360);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(119, 20);
             this.label4.TabIndex = 5;
@@ -220,7 +240,7 @@
             // 
             // progressBarShield
             // 
-            this.progressBarShield.Location = new System.Drawing.Point(829, 736);
+            this.progressBarShield.Location = new System.Drawing.Point(425, 330);
             this.progressBarShield.Name = "progressBarShield";
             this.progressBarShield.Size = new System.Drawing.Size(120, 23);
             this.progressBarShield.TabIndex = 4;
@@ -228,40 +248,20 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(841, 713);
+            this.label6.Location = new System.Drawing.Point(437, 307);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(96, 20);
             this.label6.TabIndex = 5;
             this.label6.Text = "Shield Timer";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // labelScore
-            // 
-            this.labelScore.BackColor = System.Drawing.Color.SeaShell;
-            this.labelScore.Location = new System.Drawing.Point(11, 337);
-            this.labelScore.Name = "labelScore";
-            this.labelScore.Size = new System.Drawing.Size(113, 21);
-            this.labelScore.TabIndex = 6;
-            this.labelScore.Text = "0123456789";
-            this.labelScore.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(38, 316);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(51, 20);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "Score";
-            // 
             // GameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(959, 826);
+            this.ClientSize = new System.Drawing.Size(569, 427);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.labelPauseInstruct);
             this.Controls.Add(this.progressBarShield);
             this.Controls.Add(this.panelStat);
             this.Controls.Add(this.progressRespawnTime);

@@ -101,7 +101,7 @@ namespace TheGame
                     }
                     break;
                 case Direction.Down:
-                    if (Y + Speed + Height > 800 + Height / 2)
+                    if (Y + Speed + Height > 400 + Height / 2)
                     {
                         canMove = false;
                         return;
@@ -115,7 +115,7 @@ namespace TheGame
                     }
                     break;
                 case Direction.Right:
-                    if (X + Speed + Width > 800 + Width / 2)
+                    if (X + Speed + Width > 400 + Width / 2)
                     {
                         canMove = false;
                         return;
@@ -262,7 +262,7 @@ namespace TheGame
 
     public class FastTank : BaseEnemyTank
     {
-        public FastTank(int initX, int initY) : base(initX, initY, 3, 2, 4, 2)
+        public FastTank(int initX, int initY) : base(initX, initY, 3, 1, 4, 2)
         {
             #region image
             ImgUp = Properties.Resources.fastTankUp;

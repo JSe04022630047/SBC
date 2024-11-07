@@ -62,7 +62,7 @@ namespace TheGame
                     genMap(Properties.Resources.map1.Split(new string[] { Environment.NewLine }, StringSplitOptions.None));
                     break;
                 case 2:
-                    genMap(Properties.Resources.map1.Split(new string[] { Environment.NewLine }, StringSplitOptions.None));
+                    genMap(Properties.Resources.map2.Split(new string[] { Environment.NewLine }, StringSplitOptions.None));
                     break;
             }
         }
@@ -116,9 +116,9 @@ namespace TheGame
 
         static void genMap(string[] data)
         {
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 25; i++)
             {
-                for (int j = 0; j < 50; j++)
+                for (int j = 0; j < 25; j++)
                 {
                     char curI = data[i][j];
                     if (curI == 'd')
@@ -141,13 +141,17 @@ namespace TheGame
                     {
                         enemySpawn.Add(new Point(16 * j, 16 * i));
                     }
+                    else if (curI == 'l')
+                    {
+                        CreatePlyTank(16 * j, 16 * i);
+                    }
                 }
             }
 
-            string[] enemySpawnPoolStr = data[50].Split('|');
+            string[] enemySpawnPoolStr = data[25].Split('|');
             int[] enemySpawnPool = new int[4];
 
-            for (int i = 0; i < 4; i++) 
+            for (int i = 0; i < 3; i++) 
             {
                 if (enemySpawnPoolStr[i] == null) break;
                 enemySpawnPool[i] = Convert.ToInt32(enemySpawnPoolStr[i]);
@@ -692,7 +696,7 @@ namespace TheGame
 
         private static float GetRanCoord()
         {
-            return r.Next(64, 736);
+            return r.Next(64, 336);
         }
     }
 }

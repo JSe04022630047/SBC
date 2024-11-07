@@ -28,7 +28,7 @@ namespace TheGame
         {
             InitializeComponent();
             windowsG = panelGameArea.CreateGraphics();
-            tempBitmap = new Bitmap(800, 800);
+            tempBitmap = new Bitmap(400, 400);
             GameFramework.g = Graphics.FromImage(tempBitmap);
 
             t = new Thread(new ThreadStart(GameMainThread));
@@ -82,6 +82,8 @@ namespace TheGame
                         WriteLabelSafe(labelEnemyLeft, GameObjectManager.EnemyLeft.ToString());
                         WriteProgressBarSafe(progressRespawnTime, GameObjectManager.getPlayer().respawnTimeCounter, GameObjectManager.getPlayer().respawnTime);
                         WriteProgressBarSafe(progressBarShield, GameObjectManager.getPlayer().ShieldTime, GameObjectManager.lastMaxShieldTime);
+                        Highscores.AddScore(name, GameObjectManager.Points);
+
                         break;
                     case GameState.Inter:
                         GameFramework.g.Clear(Color.Black);
@@ -110,7 +112,6 @@ namespace TheGame
                 }
                 Thread.Sleep(Globals.SLEEPTIME);
             }
-            Highscores.AddScore(name, GameObjectManager.Points);
             
         }
         private void GameForm_FormClosed(object sender, FormClosedEventArgs e)

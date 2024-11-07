@@ -524,16 +524,25 @@ namespace TheGame.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dd............................................dddd
-        ///.s.......................s...................s..dd
-        ///................................................dd
-        ///................................................dd
-        ///................................................dd
-        ///................................................dd
-        ///................................................dd
-        ///.......dd..dd....dddd...........................dd
-        ///.......dd..dd.....dd............................dd
-        ///.......dddddd.....dd........................ [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to .s..........s...........s
+        ///.........................
+        ///..ddddddddd..dddddddddd..
+        ///..ddddddddd..dddddddddd..
+        ///..ddddddddd..dddddddddd..
+        ///..ddddddddd..dddddddddd..
+        ///..ddddddddd..dddddddddd..
+        ///.........................
+        ///.........................
+        ///dd.....................dd
+        ///ii.....................ii
+        ///.........................
+        ///.........................
+        ///..dddddddddd..ddddddddd..
+        ///..dddddddd......ddddddd..
+        ///..dddddddd......ddddddd..
+        ///..dddddddd..ii..ddddddd..
+        ///..dddddddd......ddddddd..
+        ///..dddddddd......ddddddd..        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string map0 {
             get {
@@ -542,20 +551,56 @@ namespace TheGame.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ..................................................
-        ///.s.......................s...................s....
-        ///..................................................
-        ///..................................................
-        ///..................................................
-        ///..................................................
-        ///..................................................
-        ///..................................................
-        ///..................................................
-        ///............................................ [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to dd....s............s...dd
+        ///dd.....................dd
+        ///dddd....ddddddddd....dddd
+        ///dddd....ddddddddd....dddd
+        ///mm......mmmmmmmmm......mm
+        ///mmm...................mmm
+        ///mmmm.................mmmm
+        ///mmmmm...............mmmmm
+        ///dd.........ii..........dd
+        ///ii.........ii..........ii
+        ///....bb.............bb....
+        ///....bb.............bb....
+        ///mmmmmmmmmmmmmmmmmmmmmmmmm
+        ///mmmmmmmmmmmmmmmmmmmmmmmmm
+        ///........ddddddddd........
+        ///........ddddddddd........
+        ///........ddddddddd........
+        ///........ddddddddd........
+        ///...ddddd.........ddddd...        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string map1 {
             get {
                 return ResourceManager.GetString("map1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ............ii...........
+        ///.s..........ii........s..
+        ///....mmmm.........mmmm....
+        ///....mmmm.........mmmm....
+        ///mmmm.......dd........mmmm
+        ///mmmm.......dd........mmmm
+        ///mmii.......dd........iiii
+        ///mm.........dd............
+        ///.........................
+        ///dd...mmmmm.....mmmmm...dd
+        ///dd....dd.........dd....dd
+        ///dd....ii.........ii....dd
+        ///dd....ii.........ii....dd
+        ///.........................
+        ///...........dd............
+        ///....ii.....dddd....ii....
+        ///............mdd..........
+        ///....dd.............dd....
+        ///.....ddiiiiiiiiiiiidd..... [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string map2 {
+            get {
+                return ResourceManager.GetString("map2", resourceCulture);
             }
         }
         

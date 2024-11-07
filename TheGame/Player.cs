@@ -61,25 +61,25 @@ namespace TheGame
             switch (Dir)
             {
                 case Direction.Up:
-                    if (Y - Speed < 0)
+                    if (Y - Speed < 0+16)
                     {
                         IsMoving = false; return;
                     }
                     break;
                 case Direction.Down:
-                    if (Y + Speed + Height/4 > 800)
+                    if (Y + Speed + Height/4 > 400)
                     {
                         IsMoving = false; return;
                     }
                     break;
                 case Direction.Left:
-                    if (X - Speed < 0)
+                    if (X - Speed < 0+16)
                     {
                         IsMoving = false; return;
                     }
                     break;
                 case Direction.Right:
-                    if (X + Speed + Width/4 > 800)
+                    if (X + Speed + Width/4 > 400)
                     {
                         IsMoving = false; return;
                     }

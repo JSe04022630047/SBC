@@ -25,8 +25,6 @@ namespace TheGame
 
         private static bool gameOverSoundPlayed = false;
 
-        private Label labelInstruction;
-
         public static void Start()
         {
             SoundManager.InitSound();
@@ -38,7 +36,6 @@ namespace TheGame
             GameObjectManager.lastMaxShieldTime = 0;
             SoundManager.PlayStart();
             GameObjectManager.loadLevel();
-            CreatePlayerTank();
         }
 
         public static void Update()
@@ -66,21 +63,20 @@ namespace TheGame
         private static void IntermissionUpdate()
         {
             intermissionCounter++;
-            Bitmap bmp = Properties.Resources.Intermission;
-            bmp.MakeTransparent(Color.Black);
-            int x = 800 / 2 - Properties.Resources.gameover.Width / 2;
-            int y = 800 / 2 - Properties.Resources.gameover.Height / 2;
-            g.DrawString(GameObjectManager.enemyList[0].ToString(), arialFont, Brushes.White, new Point(400, 220));
-            g.DrawString(GameObjectManager.enemyList[1].ToString(), arialFont, Brushes.White, new Point(400, 350));
-            g.DrawString(GameObjectManager.enemyList[2].ToString(), arialFont, Brushes.White, new Point(400, 500));
-            g.DrawString(GameObjectManager.enemyList[1].ToString(), arialFont, Brushes.White, new Point(400, 650));
+            Bitmap bmpog = Properties.Resources.Intermission;
+            Bitmap bmp = new Bitmap(bmpog, new Size(bmpog.Width / 2, bmpog.Height / 2));
+            int x = 400 / 2 - bmp.Width / 2;
+            int y = 400 / 2 - bmp.Height / 2;
+            g.DrawString(GameObjectManager.enemyList[0].ToString(), arialFont, Brushes.White, new Point(400/2, 85));
+            g.DrawString(GameObjectManager.enemyList[1].ToString(), arialFont, Brushes.White, new Point(400/2, 160));
+            g.DrawString(GameObjectManager.enemyList[2].ToString(), arialFont, Brushes.White, new Point(400/2, 230));
+            g.DrawString(GameObjectManager.enemyList[1].ToString(), arialFont, Brushes.White, new Point(400/2, 310));
             g.DrawImage(bmp, x, y);
             if (intermissionCounter < intermissionTime) return;
             GameObjectManager.increaseLevel();
             GameObjectManager.loadLevel();
             if (gameState == GameState.Win) return;
             SoundManager.PlayStart();
-            CreatePlayerTank();
             intermissionCounter = 0;
             gameTick = 0;
             gameState = GameState.Play;
@@ -89,23 +85,19 @@ namespace TheGame
         private static void GameOverUpdate()
         {
             if (!gameOverSoundPlayed) { gameOverSoundPlayed = true; SoundManager.PlayGameOver(); }
-            int x = 800 / 2 - Properties.Resources.gameover.Width / 2;
-            int y = 800 / 2 - Properties.Resources.gameover.Height / 2;
+            Bitmap bmpog = Properties.Resources.Intermission;
+            Bitmap bmp = new Bitmap(bmpog, new Size(bmpog.Width / 2, bmpog.Height / 2));
+            int x = 400 / 2 - bmp.Width / 2;
+            int y = 400 / 2 - bmp.Height / 2;
             gameOverCounter++;
             if (gameOverCounter < gameOverTime)
             {
                 gameTick++;
                 GameObjectManager.UpdateG();
-                Bitmap bmp = Properties.Resources.gameover;
-                bmp.MakeTransparent(Color.Black);
-
                 g.DrawImage(bmp, x, y);
                 return;
             } else
             {
-                Bitmap bmp = Properties.Resources.gameover;
-                bmp.MakeTransparent(Color.Black);
-
                 g.DrawImage(bmp, x, y);
             }
         }
@@ -113,31 +105,22 @@ namespace TheGame
         private static void GameWonUpdate()
         {
             if (!gameOverSoundPlayed) { gameOverSoundPlayed = true; SoundManager.PlayStart(); }
-            int x = 800 / 2 - Properties.Resources.EndGame.Width / 2;
-            int y = 800 / 2 - Properties.Resources.EndGame.Height / 2;
+            Bitmap bmpog = Properties.Resources.EndGame;
+            Bitmap bmp = new Bitmap(bmpog, new Size(bmpog.Width / 2, bmpog.Height / 2));
+            int x = 400 / 2 - bmp.Width / 2;
+            int y = 400 / 2 - bmp.Height / 2;
             gameOverCounter++;
             if (gameOverCounter < gameOverTime)
             {
                 gameTick++;
                 GameObjectManager.UpdateG();
-                Bitmap bmp = Properties.Resources.EndGame;
-                bmp.MakeTransparent(Color.Black);
-
                 g.DrawImage(bmp, x, y);
                 return;
             }
             else
             {
-                Bitmap bmp = Properties.Resources.EndGame;
-                bmp.MakeTransparent(Color.Black);
                 g.DrawImage(bmp, x, y);
             }
-
-        }
-
-        private static void CreatePlayerTank()
-        {
-            GameObjectManager.CreatePlyTank(11 * 32, 24 * 32);
         }
 
         public static void ChangeToIntermission()
@@ -159,9 +142,9 @@ namespace TheGame
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (gameState == GameState.Inter) { intermissionCounter = intermissionTime; };
-                if (gameState == GameState.Over) { gameOverCounter = 0; gameOverSoundPlayed = false; }
-                if (gameState == GameState.Win) { gameOverSoundPlayed = false; }
+                if (gameState == GameState.Inter) { intermissionCounter = intermissionTime-1; };
+                if (gameState == GameState.Over) { gameOverCounter = 0; gameOverSoundPlayed = false;}
+                if (gameState == GameState.Win) { gameOverSoundPlayed = false;}
             }
             if (Globals.DEBUG)
             {
