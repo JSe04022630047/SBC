@@ -29,6 +29,15 @@ namespace TheGame
             if (Highscores.ScoreList.Count() == 0)
             {
                 #region Add controls hack
+                List<Control> toHide = new List<Control>();
+                toHide.AddRange(textBoxes);
+                toHide.Add(labelSt);
+                
+                foreach (Control control in toHide)
+                {
+                    control.Visible = false;
+                }
+
                 Label labelNoCurrentScore1 = new System.Windows.Forms.Label()
                 {
                     AutoSize = true,
@@ -63,10 +72,11 @@ namespace TheGame
                     Name = "panelNoCurrentScore",
                     Size = new System.Drawing.Size(450, 330),
                 };
+                this.Controls.Add(panelNoCurrentScore);
                 panelNoCurrentScore.Controls.Add(labelNoCurrentScore1);
                 panelNoCurrentScore.Controls.Add(labelNoCurrentScore2);
                 panelNoCurrentScore.Controls.Add(labelNoCurrentScore3);
-                this.Controls.Add(panelNoCurrentScore);
+
                 #endregion
             }
             else
