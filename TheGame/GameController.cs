@@ -85,7 +85,7 @@ namespace TheGame
         private static void GameOverUpdate()
         {
             if (!gameOverSoundPlayed) { gameOverSoundPlayed = true; SoundManager.PlayGameOver(); }
-            Bitmap bmpog = Properties.Resources.Intermission;
+            Bitmap bmpog = Properties.Resources.gameover;
             Bitmap bmp = new Bitmap(bmpog, new Size(bmpog.Width / 2, bmpog.Height / 2));
             int x = 400 / 2 - bmp.Width / 2;
             int y = 400 / 2 - bmp.Height / 2;
