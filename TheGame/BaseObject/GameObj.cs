@@ -22,7 +22,7 @@ namespace TheGame
 
         public virtual void DrawS()
         {
-            Graphics g = GameFramework.g;
+            Graphics g = GameController.g;
             g.DrawImage(GetImg(), X, Y);
         }
 

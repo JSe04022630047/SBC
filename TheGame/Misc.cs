@@ -64,7 +64,7 @@ namespace TheGame
     {
         public const int FRAMERATE = 120;
         public const int SLEEPTIME = 1000 / FRAMERATE;
-        public const bool DEBUG = true;
+        public const bool DEBUG = false;
         public const int CANVAS_X = 400;
         public const int CANVAS_Y = 400;
     }

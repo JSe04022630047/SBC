@@ -40,7 +40,7 @@ namespace TheGame
 
         public override void DrawS()
         {
-            Graphics g = GameFramework.g;
+            Graphics g = GameController.g;
             g.DrawImage(GetImg(), X - Width / 2, Y - Height / 2);
         }
 

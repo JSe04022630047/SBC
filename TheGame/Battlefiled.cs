@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace TheGame
 {
-    public static class GameObjectManager
+    public static class Battlefiled
     {
         private static int totalPoints = 0;
         public static int Points {  get { return totalPoints; } }
@@ -99,7 +99,7 @@ namespace TheGame
 
         public static void loadLevel()
         {
-            if (GameFramework.GameState == GameState.Win) { return; }
+            if (GameController.GameState == GameState.Win) { return; }
             loadMap(level);
         }
 
@@ -108,7 +108,7 @@ namespace TheGame
             level++;
             if (level > 2)
             {
-                GameFramework.ChangeToWon();
+                GameController.ChangeToWon();
             }
         }
 
@@ -196,18 +196,18 @@ namespace TheGame
                     if (preIntermissionCounter > preIntermissionTime)
                     {
                         preIntermissionCounter = 0;
-                        GameFramework.ChangeToIntermission();
+                        GameController.ChangeToIntermission();
                         return;
                     }
                 }
                 else
                 {
-                    GameFramework.ChangeToWon();
+                    GameController.ChangeToWon();
                 }
             }
             if (playerLife <= 0)
             {
-                GameFramework.ChangeToGM();
+                GameController.ChangeToGM();
             }
 
             foreach (Explosion explode in explosions)
@@ -672,7 +672,7 @@ namespace TheGame
         public static void BaseDestory()
         {
             plyBase.Hurt();
-            GameFramework.ChangeToGM();
+            GameController.ChangeToGM();
         }
 
         public static void KeyDown(KeyEventArgs args)

@@ -52,7 +52,7 @@ namespace TheGame
 
         public override void SetShield(int tick)
         {
-            if (tick > 0) GameObjectManager.lastMaxShieldTime = tick;
+            if (tick > 0) Battlefiled.lastMaxShieldTime = tick;
             base.SetShield(tick);
         }
 
@@ -107,46 +107,46 @@ namespace TheGame
                     break;
             }
 
-            if (GameObjectManager.IsCollidedAnyWall(thisHitbox) != null)
+            if (Battlefiled.IsCollidedAnyWall(thisHitbox) != null)
             {
                 IsMoving = false; return;
             }
 
-            if (GameObjectManager.IsCollidedBase(thisHitbox))
+            if (Battlefiled.IsCollidedBase(thisHitbox))
             {
                 IsMoving = false; return;
             }
 
-            if (GameObjectManager.IsCollidedTank(thisHitbox) != null) { IsMoving = false; return; }
+            if (Battlefiled.IsCollidedTank(thisHitbox) != null) { IsMoving = false; return; }
 
-            Powerup touchedPowerup = GameObjectManager.IsCollidedPowerup(thisHitbox);
+            Powerup touchedPowerup = Battlefiled.IsCollidedPowerup(thisHitbox);
 
             if (touchedPowerup != null)
             {
                 switch (touchedPowerup.thisPowerupID)
                 {
                     case 0:
-                        if (GameFramework.GameState == GameState.Play) SoundManager.PlayPowerUpSound();
-                        GameObjectManager.GrenadePowerup();
-                        GameObjectManager.IncreaseSorce(100);
+                        if (GameController.GameState == GameState.Play) SoundManager.PlayPowerUpSound();
+                        Battlefiled.GrenadePowerup();
+                        Battlefiled.IncreaseSorce(100);
                         break;
                     case 1:
-                        if (GameFramework.GameState == GameState.Play) SoundManager.PlayPlyShieldSound();
+                        if (GameController.GameState == GameState.Play) SoundManager.PlayPlyShieldSound();
                         SetShield(15 * Globals.SLEEPTIME);
                         break;
                     case 2:
-                        if (GameFramework.GameState == GameState.Play) SoundManager.PlayPlyShieldSound();
-                        GameObjectManager.SetHQShield();
+                        if (GameController.GameState == GameState.Play) SoundManager.PlayPlyShieldSound();
+                        Battlefiled.SetHQShield();
                         break;
                     case 3:
                         attackPower++;
-                        if (GameFramework.GameState == GameState.Play) SoundManager.PlayPowerUpSound();
-                        GameObjectManager.IncreaseSorce(100);
+                        if (GameController.GameState == GameState.Play) SoundManager.PlayPowerUpSound();
+                        Battlefiled.IncreaseSorce(100);
                         break;
                     case 4:
-                        if (GameFramework.GameState == GameState.Play) SoundManager.Play1UpSound();
-                        GameObjectManager.IncreaseLife();
-                        GameObjectManager.IncreaseSorce(100);
+                        if (GameController.GameState == GameState.Play) SoundManager.Play1UpSound();
+                        Battlefiled.IncreaseLife();
+                        Battlefiled.IncreaseSorce(100);
                         break;
                     case 5:
                         MessageBox.Show("NOT IMPLEMENTED");
@@ -179,8 +179,9 @@ namespace TheGame
 
         protected override void Attack()
         {
-            if (GameFramework.GameState == GameState.Play) SoundManager.PlayFire();
-            GameObjectManager.CreateBullet(X, Y, 0, Dir, attackPower);
+            if (Battlefiled.PlayerRespawning) return;
+            if (GameController.GameState == GameState.Play) SoundManager.PlayFire();
+            Battlefiled.CreateBullet(X, Y, 0, Dir, attackPower);
         }
 
         public void KeyDown(KeyEventArgs args)
@@ -266,7 +267,7 @@ namespace TheGame
             Y = initY;
             respawnTimeCounter = 0;
             SetShield(10*Globals.SLEEPTIME);
-            GameObjectManager.PlayerFinishedRespawning();
+            Battlefiled.PlayerFinishedRespawning();
         }
     }
 }

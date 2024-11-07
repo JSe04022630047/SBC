@@ -25,7 +25,7 @@ namespace TheGame
 
         public override void Update() 
         {
-            if (GameFramework.gameTick % 5 == 0) { flashed = !flashed; }
+            if (GameController.gameTick % 5 == 0) { flashed = !flashed; }
             X = toFollow.X-16;
             Y = toFollow.Y-16;
             base.Update();
@@ -56,7 +56,7 @@ namespace TheGame
 
         public override void Update()
         {
-            if (GameFramework.gameTick % 5 == 0) { flashed = !flashed; }
+            if (GameController.gameTick % 5 == 0) { flashed = !flashed; }
             X = toFollow.X;
             Y = toFollow.Y;
             base.Update();

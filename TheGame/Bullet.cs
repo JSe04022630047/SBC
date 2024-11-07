@@ -62,59 +62,59 @@ namespace TheGame
             else if (hitbox.Y + hitbox.Height < 0) IsDestory = true;
             else if (hitbox.Y - hitbox.Height > 400) IsDestory = true;
 
-            NoMovingObj[] walls = GameObjectManager.CollidedWalls(hitbox);
+            NoMovingObj[] walls = Battlefiled.CollidedWalls(hitbox);
             if (walls != null)
             {
-                if (GameFramework.GameState == GameState.Play) if (Tag == 0) SoundManager.PlayBlast();
+                if (GameController.GameState == GameState.Play) if (Tag == 0) SoundManager.PlayBlast();
                 IsDestory = true;
                 for (int i = 0; i < walls.Length; i++)
                 {
                     if (walls[i] is null) break;
                     if (walls[i] is IronBlock) continue;
-                    GameObjectManager.BreakWall(Dir, (BrickWall)walls[i], power);
+                    Battlefiled.BreakWall(Dir, (BrickWall)walls[i], power);
                 }
-                GameObjectManager.CreateExplosion(xExplosion, yExplosion);
+                Battlefiled.CreateExplosion(xExplosion, yExplosion);
                 return;
             }
 
-            if (GameObjectManager.IsCollidedBase(hitbox))
+            if (Battlefiled.IsCollidedBase(hitbox))
             {
                 IsDestory = true;
-                if (GameObjectManager.HQHasShield) { return; }
-                GameObjectManager.BaseDestory();
+                if (Battlefiled.HQHasShield) { return; }
+                Battlefiled.BaseDestory();
             }
 
             if (Tag == 0)
             {
-                BaseEnemyTank tank = GameObjectManager.IsCollidedTank(hitbox);
+                BaseEnemyTank tank = Battlefiled.IsCollidedTank(hitbox);
                 if (tank != null)
                 {
-                    if (GameFramework.GameState == GameState.Play) SoundManager.PlayBlast();
+                    if (GameController.GameState == GameState.Play) SoundManager.PlayBlast();
                     IsDestory = true;
-                    GameObjectManager.HurtTank(tank, power);
-                    GameObjectManager.CreateExplosion(xExplosion, yExplosion);
+                    Battlefiled.HurtTank(tank, power);
+                    Battlefiled.CreateExplosion(xExplosion, yExplosion);
                     return;
                 }
             }
             else if (Tag == 1)
             {
-                if (GameObjectManager.IsCollidedPly(hitbox))
+                if (Battlefiled.IsCollidedPly(hitbox))
                 {
                     IsDestory = true;
-                    GameObjectManager.CreateExplosion(xExplosion, yExplosion);
-                    if (GameObjectManager.getPlayer().ShieldTime <= 0)
+                    Battlefiled.CreateExplosion(xExplosion, yExplosion);
+                    if (Battlefiled.getPlayer().ShieldTime <= 0)
                     {
-                        if (GameFramework.GameState == GameState.Play) GameObjectManager.getPlayer().TakeDamage(power);
+                        if (GameController.GameState == GameState.Play) Battlefiled.getPlayer().TakeDamage(power);
                     }
-                    else { if (GameFramework.GameState == GameState.Play) SoundManager.PlayHitShield(); }
+                    else { if (GameController.GameState == GameState.Play) SoundManager.PlayHitShield(); }
                 }
             }
-            Bullet otherBullet = GameObjectManager.IsCollideBullet(hitbox, Tag);
+            Bullet otherBullet = Battlefiled.IsCollideBullet(hitbox, Tag);
 
             if (otherBullet != null)
             {
                 IsDestory = true;
-                GameObjectManager.CreateExplosion(xExplosion, yExplosion);
+                Battlefiled.CreateExplosion(xExplosion, yExplosion);
             }
         }
 

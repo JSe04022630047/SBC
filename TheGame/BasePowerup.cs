@@ -78,7 +78,7 @@ namespace TheGame
         public override void Update()
         {
             lifetimeCount++;
-            if (GameFramework.gameTick % 3 == 0) { flashed = !flashed; }
+            if (GameController.gameTick % 3 == 0) { flashed = !flashed; }
             if (lifetimeCount > lifeTime)
             {
                 lifetimeCount = 0;

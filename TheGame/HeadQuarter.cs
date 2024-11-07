@@ -40,7 +40,7 @@ namespace TheGame
                 if (!hasShield)
                 {
                     hasShield = true;
-                    GameObjectManager.CreateShield(X, Y, this);
+                    Battlefiled.CreateShield(X, Y, this);
                 }
                 shieldTime--;
             }

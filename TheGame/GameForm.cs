@@ -29,7 +29,7 @@ namespace TheGame
             InitializeComponent();
             windowsG = panelGameArea.CreateGraphics();
             tempBitmap = new Bitmap(400, 400);
-            GameFramework.g = Graphics.FromImage(tempBitmap);
+            GameController.g = Graphics.FromImage(tempBitmap);
 
             t = new Thread(new ThreadStart(GameMainThread));
             t.Start();
@@ -47,7 +47,7 @@ namespace TheGame
 
         private void GameMainThread()
         {
-            GameFramework.Start();
+            GameController.Start();
 
             int ticksToWait = 8 * Globals.SLEEPTIME;
             int ticksCounter = 0;
@@ -60,49 +60,49 @@ namespace TheGame
                     if (ticksCounter > ticksToWait) { break; }
                 }
                 mrse.WaitOne();
-                switch (GameFramework.GameState)
+                switch (GameController.GameState)
                 {
                     case GameState.Play:
-                        GameFramework.g.Clear(Color.Black);
-                        GameFramework.Update();
+                        GameController.g.Clear(Color.Black);
+                        GameController.Update();
                         windowsG.DrawImage(tempBitmap, 0, 0);
 
 #pragma warning disable CS0162 // Unreachable code detected, shutup its here for a reason
                         if (Globals.DEBUG)
                         {
-                            WriteLabelSafe(labelX, GameObjectManager.getPlayer().X.ToString());
-                            WriteLabelSafe(labelY, GameObjectManager.getPlayer().Y.ToString());
+                            WriteLabelSafe(labelX, Battlefiled.getPlayer().X.ToString());
+                            WriteLabelSafe(labelY, Battlefiled.getPlayer().Y.ToString());
                         }
 #pragma warning restore CS0162 // Unreachable code detected
 
-                        WriteLabelSafe(labelLevelCount, GameObjectManager.Level.ToString());
-                        WriteLabelSafe(labelPlyHP, GameObjectManager.getPlayer().HP.ToString());
-                        WriteLabelSafe(labelLife, GameObjectManager.PlayerLife.ToString());
-                        WriteLabelSafe(labelScore, GameObjectManager.Points.ToString());
-                        WriteLabelSafe(labelEnemyLeft, GameObjectManager.EnemyLeft.ToString());
-                        WriteProgressBarSafe(progressRespawnTime, GameObjectManager.getPlayer().respawnTimeCounter, GameObjectManager.getPlayer().respawnTime);
-                        WriteProgressBarSafe(progressBarShield, GameObjectManager.getPlayer().ShieldTime, GameObjectManager.lastMaxShieldTime);
-                        Highscores.AddScore(name, GameObjectManager.Points);
+                        WriteLabelSafe(labelLevelCount, Battlefiled.Level.ToString());
+                        WriteLabelSafe(labelPlyHP, Battlefiled.getPlayer().HP.ToString());
+                        WriteLabelSafe(labelLife, Battlefiled.PlayerLife.ToString());
+                        WriteLabelSafe(labelScore, Battlefiled.Points.ToString());
+                        WriteLabelSafe(labelEnemyLeft, Battlefiled.EnemyLeft.ToString());
+                        WriteProgressBarSafe(progressRespawnTime, Battlefiled.getPlayer().respawnTimeCounter, Battlefiled.getPlayer().respawnTime);
+                        WriteProgressBarSafe(progressBarShield, Battlefiled.getPlayer().ShieldTime, Battlefiled.lastMaxShieldTime);
+                        Highscores.AddScore(name, Battlefiled.Points);
 
                         break;
                     case GameState.Inter:
-                        GameFramework.g.Clear(Color.Black);
-                        GameFramework.Update();
+                        GameController.g.Clear(Color.Black);
+                        GameController.Update();
                         windowsG.DrawImage(tempBitmap, 0, 0);
                         WriteProgressBarSafe(progressRespawnTime, 0, 0);
                         WriteProgressBarSafe(progressBarShield, 0, 0);
                         break;
                     case GameState.Over:
-                        GameFramework.g.Clear(Color.Black);
-                        GameFramework.Update();
+                        GameController.g.Clear(Color.Black);
+                        GameController.Update();
                         windowsG.DrawImage(tempBitmap, 0, 0);
                         WriteProgressBarSafe(progressRespawnTime, 0, 0);
                         WriteProgressBarSafe(progressBarShield, 0, 0);
                         gameover = true;
                         break;
                     case GameState.Win:
-                        GameFramework.g.Clear(Color.Black);
-                        GameFramework.Update();
+                        GameController.g.Clear(Color.Black);
+                        GameController.Update();
                         windowsG.DrawImage(tempBitmap, 0, 0);
                         WriteProgressBarSafe(progressRespawnTime, 0, 0);
                         WriteProgressBarSafe(progressBarShield, 0, 0);
@@ -157,7 +157,7 @@ namespace TheGame
 
         private void GameForm_KeyDown(object sender, KeyEventArgs e)
         {
-            GameObjectManager.KeyDown(e);
+            Battlefiled.KeyDown(e);
             if (e.KeyCode == Keys.P)
             {
                 if (!paused)
@@ -172,10 +172,10 @@ namespace TheGame
                 }
             }
             if (Globals.DEBUG) { 
-                if (e.KeyCode == Keys.Oemplus) GameFramework.ChangeToIntermission();
-                if (e.KeyCode == Keys.OemMinus) GameFramework.ChangeToGM();
+                if (e.KeyCode == Keys.Oemplus) GameController.ChangeToIntermission();
+                if (e.KeyCode == Keys.OemMinus) GameController.ChangeToGM();
             }
-            GameFramework.KeyDown(e);
+            GameController.KeyDown(e);
             if (gameover)
             {
                 if (e.KeyCode == Keys.Enter)
@@ -191,7 +191,7 @@ namespace TheGame
 
         private void GameForm_KeyUp(object sender, KeyEventArgs e)
         {
-            GameObjectManager.KeyUp(e);
+            Battlefiled.KeyUp(e);
         }
     }
 }

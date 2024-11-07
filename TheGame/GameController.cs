@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace TheGame
 {
-    public class GameFramework
+    public class GameController
     {
         private static Font arialFont = new Font("Arial", 42);
 
@@ -32,10 +32,10 @@ namespace TheGame
             gameState = GameState.Play;
             gameTick = 0;
             gameOverCounter = 0;
-            GameObjectManager.ResetScore();
-            GameObjectManager.lastMaxShieldTime = 0;
+            Battlefiled.ResetScore();
+            Battlefiled.lastMaxShieldTime = 0;
             SoundManager.PlayStart();
-            GameObjectManager.loadLevel();
+            Battlefiled.loadLevel();
         }
 
         public static void Update()
@@ -44,7 +44,7 @@ namespace TheGame
             {
                 case GameState.Play:
                     gameTick++;
-                    GameObjectManager.UpdateG();
+                    Battlefiled.UpdateG();
                     break;
                 case GameState.Inter:
                     IntermissionUpdate();
@@ -67,14 +67,14 @@ namespace TheGame
             Bitmap bmp = new Bitmap(bmpog, new Size(bmpog.Width / 2, bmpog.Height / 2));
             int x = 400 / 2 - bmp.Width / 2;
             int y = 400 / 2 - bmp.Height / 2;
-            g.DrawString(GameObjectManager.enemyList[0].ToString(), arialFont, Brushes.White, new Point(400/2, 85));
-            g.DrawString(GameObjectManager.enemyList[1].ToString(), arialFont, Brushes.White, new Point(400/2, 160));
-            g.DrawString(GameObjectManager.enemyList[2].ToString(), arialFont, Brushes.White, new Point(400/2, 230));
-            g.DrawString(GameObjectManager.enemyList[1].ToString(), arialFont, Brushes.White, new Point(400/2, 310));
+            g.DrawString(Battlefiled.enemyList[0].ToString(), arialFont, Brushes.White, new Point(400/2, 85));
+            g.DrawString(Battlefiled.enemyList[1].ToString(), arialFont, Brushes.White, new Point(400/2, 160));
+            g.DrawString(Battlefiled.enemyList[2].ToString(), arialFont, Brushes.White, new Point(400/2, 230));
+            g.DrawString(Battlefiled.enemyList[1].ToString(), arialFont, Brushes.White, new Point(400/2, 310));
             g.DrawImage(bmp, x, y);
             if (intermissionCounter < intermissionTime) return;
-            GameObjectManager.increaseLevel();
-            GameObjectManager.loadLevel();
+            Battlefiled.increaseLevel();
+            Battlefiled.loadLevel();
             if (gameState == GameState.Win) return;
             SoundManager.PlayStart();
             intermissionCounter = 0;
@@ -93,7 +93,7 @@ namespace TheGame
             if (gameOverCounter < gameOverTime)
             {
                 gameTick++;
-                GameObjectManager.UpdateG();
+                Battlefiled.UpdateG();
                 g.DrawImage(bmp, x, y);
                 return;
             } else
@@ -113,7 +113,7 @@ namespace TheGame
             if (gameOverCounter < gameOverTime)
             {
                 gameTick++;
-                GameObjectManager.UpdateG();
+                Battlefiled.UpdateG();
                 g.DrawImage(bmp, x, y);
                 return;
             }

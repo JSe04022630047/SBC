@@ -60,7 +60,7 @@ namespace TheGame
         }
         public override void Update()
         {
-            if (dropPowerUp) { if (GameFramework.gameTick % 5 == 0) { flashed = !flashed; } }
+            if (dropPowerUp) { if (GameController.gameTick % 5 == 0) { flashed = !flashed; } }
             MoveCheck();
             Move();
             AttackCheck();
@@ -141,18 +141,18 @@ namespace TheGame
                     break;
             }
 
-            if (GameObjectManager.IsCollidedAnyWall(thisHitbox) != null)
+            if (Battlefiled.IsCollidedAnyWall(thisHitbox) != null)
             {
                 canMove = false;
                 return;
             }
 
-            if (GameObjectManager.IsCollidedBase(thisHitbox))
+            if (Battlefiled.IsCollidedBase(thisHitbox))
             {
                 canMove = false; return;
             }
 
-            if (GameObjectManager.IsCollidedPly(thisHitbox))
+            if (Battlefiled.IsCollidedPly(thisHitbox))
             {
                 canMove = false; return;
             }
@@ -188,7 +188,7 @@ namespace TheGame
 
         protected override void Attack()
         {
-            GameObjectManager.CreateBullet(X, Y, 1, Dir, attackPower);
+            Battlefiled.CreateBullet(X, Y, 1, Dir, attackPower);
         }
 
         protected override Image GetImg()
@@ -275,7 +275,7 @@ namespace TheGame
 
         protected override void Attack()
         {
-            GameObjectManager.CreateBullet(X, Y, 1, Dir, attackPower, 10);
+            Battlefiled.CreateBullet(X, Y, 1, Dir, attackPower, 10);
         }
     }
 
